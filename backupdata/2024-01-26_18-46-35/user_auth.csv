@@ -1,0 +1,3 @@
+blocked,created_at,_id,email,password,verified
+false,1702297587339,6576fff318cc722a17f5c397,a@b.com,,false
+false,1702285288944,6576cfe86718fc976244fab7,b@b.com,$2a$14$iDkwC5qd7LOf7qm3TWcIfupt3SsZ23eUGh6hAZXuyeo1HNb9mpkwO,true

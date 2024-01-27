@@ -1,0 +1,2 @@
+_id,public_plant_id,interval_sec,key,secret,collection_name_logger,ip_whitelist,created_at
+6576d8c62d83eef8d11cd316,970407102018637,70,7446579140876818687525890004949221730587,$2a$14$jajfY.e4IQMw5zbEzg0aoO8yVc9Slz7X0Jn0XjXE4OLSOronzzEwm,plant_logger_629172282296,[0000:0000:0000:0000:0000:0000:0000:0001],1702287558780
