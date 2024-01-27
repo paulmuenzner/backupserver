@@ -1,6 +1,3 @@
-###Pagination implemented to handle large object lists with AWS S3
-Upload a single object by using the Amazon S3 console – With the Amazon S3 console, you can upload a single object up to 160 GB in size. Upload an object in parts by using the AWS SDKs, REST API, or AWS CLI – Using the multipart upload API operation, you can upload a single large object, up to 5 TB in size.
-
 <a name="readme-top"></a>
 
 
@@ -11,31 +8,30 @@ Upload a single object by using the Amazon S3 console – With the Amazon S3 con
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Golang][golang-shield]][golang-url]
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![paulmuenzner.com][website-shield]][website-url]
+[![paulmuenzner github][github-shield]][github-url]
+[![Contributors][contributors-shield]][contributors-url]
 
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/paulmuenzner/golang-backup-server">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Golang Backup Server</h3>
 
   <p align="center">
     An awesome README template to jumpstart your projects!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/paulmuenzner/golang-backup-server"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://github.com/paulmuenzner/golang-backup-server">View Demo</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
     ·
@@ -93,18 +89,13 @@ Use the `BLANK_README.md` to get started.
 
 
 
-### Built With
+### Built For/With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This project is basically built with and applies:
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![Aws][aws-shield]][aws-url]
+* [![Golang][golang-shield]][golang-url]
+* [![MongoDB][mongodb-shield]][mongodb-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -113,47 +104,65 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Before starting the program, make sure to make all configurations ==> <a href="#configuration">Configuration</a>.
 
-### Prerequisites
+### Prerequisites & Installation
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+- Make sure MongoDB is installed and available locally.
+- Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/paulmuenzner/golang-backup-server.git
    ```
-3. Install NPM packages
+- Install go dependencies by running
    ```sh
-   npm install
+   go get
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+- Run program by: `go run main.go` or use live-reloader such as [air](https://github.com/cosmtrek/air) with `air`
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Features
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+- Upload and backup your entire MongoDB database in csv file format to AWS S3
+- No limit for MongoDB database size. Collections which are too large for S3 are split
+- Pagination implemented to handle large object lists with AWS S3
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONFIGURATION -->
+## Configuration
+<a name="configuration"></a>
+The following configurations can be made in the config file => /config/base_config.go
+
+| Key                               |  Description |  Example 
+|:-----                             |:---------    |:---------    
+| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Backup file names are assigned by day. All logs generated in one day are collected in a designated backup file. This parameter (of type int) indicates after how many days log files are stored before they are deleted automatically. |    5   
+| NameDatabase                      |  Configure your database name (of type string) you like to backup. It must be 100% identical to the MongoDB database name. |  "MyProjectDB"      
+| FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | "mydbbackup"     
+| FileNameMetaData                  |File name (of type string) for meta data file containing information on each created backup file |  "meta_data.csv"         
+| IntervalBackup                    |Cron-like syntax (of type string) format to define the recurring schedule of your automatic backup  |"@every 6h"
+| MaxFileSizeInBytes                | The maximum size (of type int64) of a backup file. Be aware of the max upload size permitted by AWS S3. Of the configured file size is not sufficient, a new backup file is created with the same name plus an added sequential numbering at the end           | 2 * 1024 * 1024 * 1024
+| SendEmailNotifications            |Decide whether you want to send email notifications or not. Emails are send in both cases error and successfully completed backup. Type is bool    | false
+| EmailProviderUserNameEnv          |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_PROVIDER_USERNAME"
+| EmailProviderPasswordEnv          |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_PROVIDER_PASSWORD"
+| SmtpPortEnv                       | Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.          | "SMTP_PORT_ENV"
+| HostEmailProviderEnv              |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_PROVIDER_HOST"
+| EmailAddressSenderEnv             |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_ADDRESS_SENDER_BACKUP"
+| EmailAddressReceiverEnv           |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_ADDRESS_RECEIVER_BACKUP"
+| IsCircularBufferActivatedS3       |Decide whether you like to implement a circular buffer or not. If 'false', all backups on S3 are stored without deleting them, which might increase costs depending on backup interval and database size. Type is bool. | true
+| MaxBackupsS3                      |Configuration for circular buffer (of type int). If IsCircularBufferActivatedS3 is set to true, circular buffer deletes backups older than latest number of MaxBackupsS3 in S3. In this example, the 12 newest backups are stored on S3 only - older ones are deleted. | 12
+| UseLocalBackupStorage             |Decide (with type bool) if you like to store backups on your local machine (where this program is running), too. Type is bool.| true 
+| IsCircularBufferActivatedLocally  | Same function as 'IsCircularBufferActivatedS3' but for local backup storage. | true
+| MaxBackupsLocally                 | Same as 'MaxBackupsS3' but for local backup storage. If MaxBackupsLocally is set to true, circular buffer deletes backups older than latest number of MaxBackupsLocally locally.| 10
+| S3BucketEnvProd                   |Name of .env key (of type string) to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be created in your AWS account.| "BUCKET_NAME"
+| S3RegionEnvProd                   |Name of .env key (of type string) to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| "AWS_REGION"
+| S3AccessKeyEnvProd                |Name of .env key (of type string) to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| "AWS_ACCESS_KEY_ID"
+| S3SecretKeyEnvProd                |Name of .env key (of type string) to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| "AWS_SECRET_ACCESS_KEY"      
 
 
 
@@ -215,7 +224,7 @@ Use this space to list resources you find helpful and would like to give credit 
 
 * [AWS S3 Upload Size](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
 * [MongoDB Go Docs](https://www.mongodb.com/docs/drivers/go/current/quick-start/)
-* [AWS SDK for Go V2 Docs](https://aws.github.io/aws-sdk-go-v2/docs/)
+* [AWS SDK for Go V2 Docs][aws-url]
 * [Gomail Docs](https://pkg.go.dev/gopkg.in/gomail.v2?utm_source=godoc)
 * [Testing](https://pkg.go.dev/testing) & [assert](https://pkg.go.dev/github.com/stretchr/testify/assert)
 * [Cron](https://pkg.go.dev/github.com/robfig/cron/v3)
@@ -227,8 +236,14 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[golang-shield]: https://img.shields.io/badge/golang-black.svg?style=for-the-badge&logo=go&colorB=ffffff
+[golang-shield]: https://img.shields.io/badge/golang-black.svg?style=for-the-badge&logo=go&logoColor=ffffff&colorB=00ADD8
 [golang-url]: https://go.dev/
+[aws-shield]: https://img.shields.io/badge/aws_s3-black.svg?style=for-the-badge&logo=amazons3&logoColor=ffffff&colorB=569A31
+[aws-url]: https://aws.github.io/aws-sdk-go-v2/docs/
+[mongodb-shield]: https://img.shields.io/badge/mongodb-black.svg?style=for-the-badge&logo=mongodb&logoColor=ffffff&colorB=47A248
+[mongodb-url]: https://go.dev/
+[github-shield]: https://img.shields.io/badge/paulmuenzner-black.svg?style=for-the-badge&logo=github&logoColor=ffffff&colorB=000000
+[github-url]: https://github.com/paulmuenzner
 [contributors-shield]: https://img.shields.io/github/contributors/paulmuenzner/golang-backup-server.svg?style=for-the-badge
 [contributors-url]: https://github.com/paulmuenzner/golang-backup-server/graphs/contributors
 [forks-shield]: https://img.shields.io/badge/FORKS-blue?style=for-the-badge
@@ -237,8 +252,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [issues-url]: https://github.com/paulmuenzner/golang-backup-server/issues
 [license-shield]: https://img.shields.io/github/license/paulmuenzner/golang-backup-server.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-paulmuenzner.com-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue?style=for-the-badge
+[website-url]: https://paulmuenzner.com
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/

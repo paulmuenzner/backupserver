@@ -3,7 +3,7 @@ package config
 const (
 	DeleteLogsAfterDays       = 5
 	NameDatabase              = "PlantDB"
-	FolderNameBackup          = "PlantDB"
+	FolderNameBackup          = "plantdb"
 	FileNameMetaData          = "meta_data.csv"
 	IntervalBackup            = "@every 10s"                               // cron-like syntax format to define a recurring schedule. Alternative examples: "@every 30m", "@every 6h", "@every 1d"
 	MaxFileSizeInBytes  int64 = 2 /* <<< Size in GB*/ * 1024 * 1024 * 1024 // Maximum permitted backup csv file size. Consider max upload size permitted by AWS S3 => README.md
@@ -11,8 +11,8 @@ const (
 	SendEmailNotifications   = false // If false, no email notifications at all (error & success)
 	EmailProviderUserNameEnv = "your_mailtrap_username"
 	EmailProviderPasswordEnv = "your_mailtrap_password"
-	SmtpPortEnv              = 587
-	HostEnv                  = "smtp.mailtrap.io"
+	SmtpPortEnv              = 587 // prepare env
+	HostEmailProviderEnv     = "smtp.mailtrap.io"
 	EmailAddressSenderEnv    = "EMAIL_ADDRESS_SENDER_BACKUP"
 	EmailAddressReceiverEnv  = "EMAIL_ADDRESS_RECEIVER_BACKUP"
 	// Circular buffer S3 settings
