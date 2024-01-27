@@ -9,6 +9,9 @@ settings.json
 # Test binary, built with 'go test -c'
 *.test
 
+# Backup data
+backupdata/
+
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 

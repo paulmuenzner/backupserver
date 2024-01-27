@@ -1,4 +1,0 @@
-collection_name,folder_path,file_name,size_in_bytes,database_name,date_start_entire_backup,date_finalized_file
-user_auth,backupdata/2024-01-26_15-55-09,user_auth,226,PlantDB,2024-01-26 15:55:09.007319,2024-01-26 15:55:09.028094
-pv_plants,backupdata/2024-01-26_15-55-09,pv_plants,276,PlantDB,2024-01-26 15:55:09.007319,2024-01-26 15:55:09.036006
-plant_logger_config,backupdata/2024-01-26_15-55-09,plant_logger_config,319,PlantDB,2024-01-26 15:55:09.007319,2024-01-26 15:55:09.042455
