@@ -10,6 +10,7 @@ Upload a single object by using the Amazon S3 console – With the Amazon S3 con
 <!--
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+[![Golang][golang-shield]][golang-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -163,12 +164,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [x] Add optional circular buffer feature for local storage
 - [x] Add optional email email notification feature
 - [ ] Add gzip compression feature for entire backup files
+- [ ] Extend testing
 - [ ] Add option to also backup SQL databases besides MongoDB
 - [ ] Add option to backup multiple databases
 - [ ] Add option to upload backups to MS Azure
 
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/paulmuenzner/golang-backup-server/issues) to report bugs or request fatures.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -179,14 +181,8 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions are more than welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for
+more info.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -195,7 +191,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the GNU General Public License v2.0. See [LICENSE](LICENSE.txt) for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -204,9 +200,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Paul Münzner - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Paul Münzner: [https://paulmuenzner.com](https://paulmuenzner.com) 
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/paulmuenzner/golang-backup-server](https://github.com/paulmuenzner/golang-backup-server)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -220,11 +216,10 @@ Use this space to list resources you find helpful and would like to give credit 
 * [AWS S3 Upload Size](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
 * [MongoDB Go Docs](https://www.mongodb.com/docs/drivers/go/current/quick-start/)
 * [AWS SDK for Go V2 Docs](https://aws.github.io/aws-sdk-go-v2/docs/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+* [Gomail Docs](https://pkg.go.dev/gopkg.in/gomail.v2?utm_source=godoc)
+* [Testing](https://pkg.go.dev/testing) & [assert](https://pkg.go.dev/github.com/stretchr/testify/assert)
+* [Cron](https://pkg.go.dev/github.com/robfig/cron/v3)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -232,17 +227,17 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[golang-shield]: https://img.shields.io/badge/golang-black.svg?style=for-the-badge&logo=go&colorB=ffffff
+[golang-url]: https://go.dev/
+[contributors-shield]: https://img.shields.io/github/contributors/paulmuenzner/golang-backup-server.svg?style=for-the-badge
 [contributors-url]: https://github.com/paulmuenzner/golang-backup-server/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/badge/FORKS-blue?style=for-the-badge
 [forks-url]: https://github.com/paulmuenzner/golang-backup-server/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/paulmuenzner/golang-backup-server/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/paulmuenzner/golang-backup-server.svg?style=for-the-badge
 [issues-url]: https://github.com/paulmuenzner/golang-backup-server/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/paulmuenzner/golang-backup-server.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-shield]: https://img.shields.io/badge/-paulmuenzner.com-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
