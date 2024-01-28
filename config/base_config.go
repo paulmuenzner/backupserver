@@ -3,7 +3,7 @@ package config
 const (
 	DeleteLogsAfterDays       = 5
 	NameDatabase              = "PlantDB"
-	FolderNameBackup          = "plantdb"
+	FolderNameBackup          = "backupdata"
 	FileNameMetaData          = "meta_data.csv"
 	IntervalBackup            = "@every 10s" // cron-like syntax format to define a recurring schedule. Alternative examples: "@every 30m", "@every 6h", "@every 1d"
 	MongoURIEnv               = "MONGO_URI"

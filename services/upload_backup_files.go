@@ -22,7 +22,7 @@ func UploadBackupsAwsS3(folderPathBackup, metaFileName string, awsClientConfig *
 	// Setup AWS S3 client dependency
 	awsMethods, err := aws.GetAwsMethods(awsClientConfig)
 	if err != nil {
-		return fmt.Errorf("Error in 'UploadBackupsAwsS3()' with 'AwsMethodInterface()'. Error:  %v", bucketName, err)
+		return fmt.Errorf("Error in 'UploadBackupsAwsS3()' with 'GetAwsMethods()'. Aws client config data: %+v. Error:  %v", awsClientConfig, err)
 	}
 
 	// Validate if bucket accessible

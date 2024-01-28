@@ -13,7 +13,7 @@ func DeleteOldBackupsS3(bucketName string, awsClientConfig *aws.AwsClientConfigD
 	// Setup AWS S3 client dependency
 	awsMethods, err := aws.GetAwsMethods(awsClientConfig)
 	if err != nil {
-		return fmt.Errorf("Error in 'UploadBackupsAwsS3()' with 'AwsMethodInterface()'. Error:  %v", bucketName, err)
+		return fmt.Errorf("Error in 'DeleteOldBackupsS3()' with 'GetAwsMethods()' using the following aws client config data: %+v. Error:  %v", awsClientConfig, err)
 	}
 
 	///////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ func DeleteOldBackupsS3(bucketName string, awsClientConfig *aws.AwsClientConfigD
 	folderPrefix := config.FolderNameBackup + "/"
 	folderNames, err := awsMethods.MethodInterface.ListFolderNamesS3(bucketName, folderPrefix)
 	if err != nil {
-		return fmt.Errorf("Couldn't create S3 client in 'DeleteOldBackupsS3'. Error: %v", err)
+		return fmt.Errorf("Couldn't list folder paths in S3 bucket '%s' using folder '%s' in 'DeleteOldBackupsS3()' using 'ListFolderNamesS3()'. Error: %v", bucketName, folderPrefix, err)
 
 	}
 
@@ -44,7 +44,7 @@ func DeleteOldBackupsS3(bucketName string, awsClientConfig *aws.AwsClientConfigD
 			path := config.FolderNameBackup + "/" + outdatedBackupFolder
 			err := awsMethods.MethodInterface.DeleteFolderContents(bucketName, path)
 			if err != nil {
-				return fmt.Errorf("Error in 'DeleteOldBackupsS3': %v", err)
+				return fmt.Errorf("Error in 'DeleteOldBackupsS3' using 'DeleteFolderContents()' deleting '%s' in bucket '%s'. Error: %v", path, bucketName, err)
 			}
 		}
 	}

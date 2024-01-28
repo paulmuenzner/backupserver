@@ -24,7 +24,7 @@
   <h3 align="center">Golang Backup Server</h3>
 
   <p align="center">
-    Circular Buffer Backups For MondoDB Using AWS S3 Storage
+    Circular Buffer Backups For MongoDB Using AWS S3
     <br />
     <a href="#about-the-project"><strong>EXPLORE DOCS</strong></a>
     <br />
@@ -63,14 +63,14 @@ This Golang-based server is designed to automate recurring backups of MongoDB da
 
 ### Features
 - **Recurring Backups**: Define automatic, scheduled backups using cron jobs.
+- **Circular Buffer**: Implement a circular buffer to manage and optimize backup storage.
 - **CSV Format**: Each MongoDB collection is saved as a CSV file, offering simplicity and human readability. 
-- **Configuration Flexibility**: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups through a flexible configuration system.
+- **Configuration Flexibility**: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups thanks to a flexible configuration system.
 - **Limit File Size**: Define max and limit size of csv files. Large collections are splitted into multiple numbered files.
 - **Dependency Injection (DI) setup**: This Golang webserver boasts a robust architecture designed for flexibility, reduced coupling and testibiliy through a dedicated Dependency Injection (DI) setup. The core functionalities of database communications, and AWS operations and sending email notifications are seamlessly integrated, providing a cohesive and modular solution.
 - **AWS S3 Integration**: Backups are securely uploaded to AWS S3 for reliable and scalable storage. Multipart uploads are applied automatically for large csv files improving throughput by uploading a number of parts in parallel.
 - **S3 Pagination**: Pagination implemented to handle large object lists with AWS S3.
-- **Circular Buffer**: Implement a circular buffer to manage and optimize backup storage.
-- **Local Backups**: Store backups optionally on your local machine.
+- **Local Backups**: Store backups optionally on your local machine; even with circular buffer functionality.
 - **Robust Error Handling Mechanism**: Any encountered errors are diligently logged to the designated log folder and simultaneously dispatched via email notifications.
 
 
@@ -83,7 +83,7 @@ Choosing to make backups in CSV format offers simplicity, portability, and human
 
 ### Tech Stack <a name="tech-stack"></a>
 
-This project is basically built with and applies:
+This project is basically built with and for:
 
 * [![Aws][aws-shield]][aws-url]
 * [![Golang][golang-shield]][golang-url]
@@ -138,7 +138,7 @@ If you intend to use email notifications (configured with SendEmailNotifications
 
 - EMAIL_PROVIDER_PASSWORD: Password for the email provider.
 - EMAIL_PROVIDER_USERNAME: Username for the email provider.
-- SMTP_PORT_ENV: SMTP port for the email provider.
+- EMAIL_PROVIDER_SMTP_PORT: SMTP port for the email provider.
 - EMAIL_PROVIDER_HOST: Hostname of the email provider.
 - EMAIL_ADDRESS_SENDER_BACKUP: Sender email address for backup notifications.
 - EMAIL_ADDRESS_RECEIVER_BACKUP: Receiver email address for backup notifications.
@@ -179,7 +179,7 @@ The following configurations can be modified in the config file located at => /c
 
 | Key                               |  Description |  Type |  Example 
 |:-----                             |:---------    |:---------  |:---------    
-| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Backup file names are assigned by day. All logs generated in one day are collected in a designated backup file. This parameter indicates after how many days log files are stored before they are deleted automatically. | int|   5   
+| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Log file names are assigned by day. All logs generated during one day are collected in a designated backup file. This parameter indicates after how many days log files will be deleted automatically. | int|   5   
 | NameDatabase                      |  Configure your database name you like to backup. It must be 100% identical to the MongoDB database name. | string| "MyProjectDB"      
 | FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | string|"mydbbackup"     
 | FileNameMetaData                  |File name for meta data file containing information on each created backup file | string| "meta_data.csv"         
@@ -193,11 +193,11 @@ The following configurations can be modified in the config file located at => /c
 | EmailAddressSenderEnv             |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| string|"EMAIL_ADDRESS_SENDER_BACKUP"
 | EmailAddressReceiverEnv           |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| string|"EMAIL_ADDRESS_RECEIVER_BACKUP"
 | IsCircularBufferActivatedS3       |Decide whether you like to implement a circular buffer or not. If 'false', all backups on S3 are stored without deleting them, which might increase costs depending on backup interval and database size. | bool|true
-| MaxBackupsS3                      |Configuration for circular buffer. If IsCircularBufferActivatedS3 is set to true, circular buffer deletes backups older than latest number of MaxBackupsS3 in S3. In this example, the 12 newest backups are stored on S3 only - older ones are deleted. | int|12
-| UseLocalBackupStorage             |Decide if you like to store backups on your local machine (where this program is running), too.|bool| true 
+| MaxBackupsS3                      |Configuration for circular buffer. If IsCircularBufferActivatedS3 is set to true, circular buffer deletes backups older than latest number of MaxBackupsS3 in S3. In this example, the 12 newest backups are stored on S3 only - older backups will be deleted. | int|12
+| UseLocalBackupStorage             |Decide if you like to store backups on your local machine (where this program is running on), too.|bool| true 
 | IsCircularBufferActivatedLocally  | Same function as 'IsCircularBufferActivatedS3' but for local backup storage. |bool| true
 | MaxBackupsLocally                 | Same as 'MaxBackupsS3' but for local backup storage. If MaxBackupsLocally is set to true, circular buffer deletes backups older than latest number of MaxBackupsLocally locally.|int| 10
-| S3BucketEnv                   |Name of .env key to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be created in your AWS account.|string| "BUCKET_NAME"
+| S3BucketEnv                   |Name of .env key to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be ready in your AWS account.|string| "BUCKET_NAME"
 | S3RegionEnv                   |Name of .env key to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| string|"AWS_REGION"
 | S3AccessKeyEnv                |Name of .env key to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| string|"AWS_ACCESS_KEY_ID"
 | S3SecretKeyEnv                |Name of .env key to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| string|"AWS_SECRET_ACCESS_KEY"    
@@ -207,7 +207,7 @@ The following configurations can be modified in the config file located at => /c
 
 ### Run program
 
-- Run program by: `go run main.go` or use live-reloader such as [air](https://github.com/cosmtrek/air) with `air`
+Run program by: `go run main.go` or use live-reloader such as [air](https://github.com/cosmtrek/air) with `air`
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -303,19 +303,3 @@ Use this space to list resources you find helpful and would like to give credit 
 [website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue?style=for-the-badge
 [website-url]: https://paulmuenzner.com
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
