@@ -1,4 +1,4 @@
-package cronBackup
+package backup
 
 import (
 	services "backupserver/services"

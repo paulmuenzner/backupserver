@@ -9,14 +9,14 @@ import (
 	"time"
 )
 
-func (client *MailClient) SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup string) error {
+func (client *MailClient) SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup, databaseName string) error {
 	timeStampString := date.TimeStampSlug(timeStamp)
 	// Subject
 	subjectComponents := []string{"Successful backup: ", timeStampString}
 	subject := strings.ConcatenateStrings(subjectComponents...)
 
 	// Subject
-	bodyComponents := []string{"Backup of your database successful. <br/> Date: ", timeStampString, "<br/> Bucket name: ", bucketName, "<br/> Folder path S3: ", folderPathBackup}
+	bodyComponents := []string{"Backup of your database successful. <br/> Date: ", timeStampString, "<br/> Database name: ", databaseName, "<br/> Bucket name: ", bucketName, "<br/> Folder path S3: ", folderPathBackup}
 	body := strings.ConcatenateStrings(bodyComponents...)
 
 	senderEmail, err := envHandler.GetEnvValue(config.EmailAddressSenderEnv, "")

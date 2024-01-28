@@ -11,7 +11,7 @@ import (
 // Setup of Dependency Injection for Transactional Email Client Methods
 // /////////////////////
 type EmailMethods interface {
-	SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup string) error
+	SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup, databaseName string) error
 	SendEmail(senderEmail, recipientEmail, subject, body string) error
 }
 
