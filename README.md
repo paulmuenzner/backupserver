@@ -1,8 +1,6 @@
 <a name="readme-top"></a>
 
 
-
-
 <!-- PROJECT SHIELDS -->
 <!--
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
@@ -26,12 +24,12 @@
   <h3 align="center">Golang Backup Server</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    Circular Buffer Backups For MondoDB Using AWS S3 Storage
     <br />
-    <a href="https://github.com/paulmuenzner/golang-backup-server"><strong>Explore the docs »</strong></a>
+    <a href="#about-the-project"><strong>EXPLORE DOCS</strong></a>
     <br />
     <br />
-    <a href="https://github.com/paulmuenzner/golang-backup-server">View Demo</a>
+    <a href="#configuration">High Flexibility</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
     ·
@@ -45,20 +43,8 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -72,24 +58,27 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+This Golang-based server is designed to automate recurring backups of MongoDB databases, offering flexibility and ease of use. The server converts each collection into CSV file format, providing human-readable backups that are easily managed. Backups are then uploaded to AWS S3, ensuring secure and scalable storage.
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+### Features
+- Recurring Backups: Define automatic, scheduled backups using cron jobs.
+- CSV Format: Each MongoDB collection is saved as a CSV file, offering simplicity and human readability. 
+- Define max and limit size of csv files. Large collections are splitted into multiple numbered files.
+- AWS S3 Integration: Backups are securely uploaded to AWS S3 for reliable and scalable storage. Multipart uploads are applied automatically for large csv files improving throughput by uploading a number of parts in parallel.
+- Pagination implemented to handle large object lists with AWS S3.
+- Configuration Flexibility: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups through a flexible configuration system.
+- Circular Buffer: Implement a circular buffer to manage and optimize backup storage.
+- Store backups optionally on your local machine.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
 
-Use the `BLANK_README.md` to get started.
+### Advantage CSV Backups
+
+Choosing to make backups in CSV format offers simplicity, portability, and human readability. CSV files are plain text, making them easy to understand, edit, and share across various platforms. They don't rely on database-specific tools (eg. MongoDB Compass), providing independence and ease of use. Additionally, CSV allows for straightforward analysis, version control, and transparency into data structure. This format is database-agnostic, facilitating compatibility and reducing dependencies. While MongoDB backups have their advantages, CSV backups are often preferred for their versatility and accessibility.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-### Built For/With
+### Tech Stack <a name="tech-stack"></a>
 
 This project is basically built with and applies:
 
@@ -104,11 +93,15 @@ This project is basically built with and applies:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Before starting the program, make sure to make all configurations ==> <a href="#configuration">Configuration</a>.
+Prior to launching the program, clone the repo, install go dependencies and ensure that all configurations are set. 
 
-### Prerequisites & Installation
 
+### Prerequisites 
 - Make sure MongoDB is installed and available locally.
+
+
+### Installation
+
 - Clone the repo
    ```sh
    git clone https://github.com/paulmuenzner/golang-backup-server.git
@@ -117,27 +110,64 @@ Before starting the program, make sure to make all configurations ==> <a href="#
    ```sh
    go get
    ```
-- Run program by: `go run main.go` or use live-reloader such as [air](https://github.com/cosmtrek/air) with `air`
+
+### Environment file (.env)
+Before running the program, you need to set up the required environment variables by creating a .env file in the root directory of the project. This file holds sensitive information and configurations needed for the proper functioning of the application.
+
+#### Mandatory Environment Variables
+
+AWS S3 Configuration:
+
+If your application involves interactions with AWS S3, you must provide the following key-value pairs in the .env file:
+
+- BUCKET_NAME: The name of your AWS S3 bucket.
+- AWS_REGION: The AWS region where your S3 bucket is located.
+- AWS_ACCESS_KEY_ID: Your AWS access key ID.
+- AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
+
+#### Optional Environment Variables
+
+Email Notification Configuration:
+
+If you intend to use email notifications (configured with SendEmailNotifications in the config file), include the following additional variables in your .env file:
+
+- EMAIL_PROVIDER_PASSWORD: Password for the email provider.
+- EMAIL_PROVIDER_USERNAME: Username for the email provider.
+- SMTP_PORT_ENV: SMTP port for the email provider.
+- EMAIL_PROVIDER_HOST: Hostname of the email provider.
+- EMAIL_ADDRESS_SENDER_BACKUP: Sender email address for backup notifications.
+- EMAIL_ADDRESS_RECEIVER_BACKUP: Receiver email address for backup notifications.
+
+#### Important Note
+
+Make sure to keep your '.env' file secure and do not share it publicly.
+
+The program relies on these configurations to run successfully. Without the correct values in the .env file, certain features may not work as expected.
+
+#### Template
+
+Here's an example .env template in code format. Replace "your-..." placeholders with your actual values. Ensure that this file is kept secure, and sensitive information is not shared publicly. Users should fill in the appropriate values for their specific configurations.
+```sh
+# AWS S3 Configuration
+BUCKET_NAME=your-s3-bucket-name
+AWS_REGION=your-aws-region
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+
+# Email Notification Configuration (Optional)
+EMAIL_PROVIDER_PASSWORD=your-email-provider-password
+EMAIL_PROVIDER_USERNAME=your-email-provider-username
+SMTP_PORT_ENV=your-smtp-port
+EMAIL_PROVIDER_HOST=your-email-provider-host
+EMAIL_ADDRESS_SENDER_BACKUP=your-sender-email-address
+EMAIL_ADDRESS_RECEIVER_BACKUP=your-receiver-email-address
+
+   ```
 
 
-
-
-<!-- USAGE EXAMPLES -->
-## Features
-
-- Upload and backup your entire MongoDB database in csv file format to AWS S3
-- No limit for MongoDB database size. Collections which are too large for S3 are split
-- Pagination implemented to handle large object lists with AWS S3
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONFIGURATION -->
-## Configuration
+### Configuration
 <a name="configuration"></a>
-The following configurations can be made in the config file => /config/base_config.go
+The following configurations can be modified in the config file located at => /config/base_config.go
 
 | Key                               |  Description |  Example 
 |:-----                             |:---------    |:---------    
@@ -162,7 +192,14 @@ The following configurations can be made in the config file => /config/base_conf
 | S3BucketEnvProd                   |Name of .env key (of type string) to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be created in your AWS account.| "BUCKET_NAME"
 | S3RegionEnvProd                   |Name of .env key (of type string) to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| "AWS_REGION"
 | S3AccessKeyEnvProd                |Name of .env key (of type string) to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| "AWS_ACCESS_KEY_ID"
-| S3SecretKeyEnvProd                |Name of .env key (of type string) to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| "AWS_SECRET_ACCESS_KEY"      
+| S3SecretKeyEnvProd                |Name of .env key (of type string) to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| "AWS_SECRET_ACCESS_KEY"    
+
+### Run program
+
+- Run program by: `go run main.go` or use live-reloader such as [air](https://github.com/cosmtrek/air) with `air`
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
