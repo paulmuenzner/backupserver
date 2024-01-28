@@ -1,4 +1,4 @@
-package cronJobHandler
+package cronBackup
 
 import (
 	"backupserver/config"
@@ -18,7 +18,7 @@ import (
 )
 
 // More on cron jobs in Go -> https://pkg.go.dev/github.com/robfig/cron#section-readme
-func Backup(client *mongoDB.DatabaseClient, awsClientConfig *aws.ClientConfig, bucketName string) {
+func Backup(mongoDbClientConfig *mongoDB.DatabaseClient, awsClientConfig *aws.AwsClientConfigData, emailClientConfig *email.EmailClientConfigData, bucketName string) {
 	//////////////////////////////////////
 	// Define time stamps
 	timeStamp := date.TimeStamp()
@@ -43,7 +43,7 @@ func Backup(client *mongoDB.DatabaseClient, awsClientConfig *aws.ClientConfig, b
 	//////////////////////////////////////
 	// Get all collections in database
 	databaseName := config.NameDatabase
-	databaseClientSetup := mongoDB.MongoClientBasics(client)
+	databaseClientSetup := mongoDB.MongoClientBasics(mongoDbClientConfig)
 	collections, err := databaseClientSetup.MethodInterface.GetAllCollections(databaseName)
 	if err != nil {
 		logger.GetLogger().Error("Error adding in 'Backup' retrieving collection list. Error: ", err)
@@ -83,7 +83,7 @@ func Backup(client *mongoDB.DatabaseClient, awsClientConfig *aws.ClientConfig, b
 			// Check if current backup file together with new data to add (backupData) already exists
 			backupFileCreated, err := files.LocalFileExists(fileNameBackupFile)
 			if err != nil {
-				logger.GetLogger().Errorf("Error validating if file path exists in 'Backup' using 'LocalFileExists(fileNameBackupFile)'. File path %s. Error: %v\n", fileNameBackupFile, err)
+				logger.GetLogger().Errorf("Error validating if file path exists in 'Backup' using 'LocalFileExists(fileNameBackupFile)'. File path %s. Error: %v", fileNameBackupFile, err)
 				return
 			}
 
@@ -155,10 +155,7 @@ func Backup(client *mongoDB.DatabaseClient, awsClientConfig *aws.ClientConfig, b
 	/////////////////////////////////////////////////////////////////////////////////////////
 	// Manage Storage Backup
 	////////////////////////
-	//
-	// AWS S3
-	//
-
+	err = ManageStorages(folderPathBackup, fileNameMeta, awsClientConfig, bucketName)
 	// Upload all backup files and meta data file to virtual AWS S3 folder path (folderPathBackup)
 	// Manage Circular Buffer
 	err = services.UploadBackupsAwsS3(folderPathBackup, fileNameMeta, awsClientConfig, bucketName)
@@ -175,8 +172,13 @@ func Backup(client *mongoDB.DatabaseClient, awsClientConfig *aws.ClientConfig, b
 	}
 
 	if config.SendEmailNotifications == true {
-
-		email.EmailMethods.SendEmailBackupSuccess(timeStampString)
+		// Setup Email client dependency
+		emailMethods, err := email.GetEmailMethods(emailClientConfig)
+		err = emailMethods.MethodInterface.SendEmailBackupSuccess(timeStamp, bucketName, folderPathBackup)
+		if err != nil {
+			logger.GetLogger().Error("Error in 'Backup' applying 'SendEmailBackupSuccess()'. Error: ", err)
+			return
+		}
 	}
-
+	logger.GetLogger().Infof("Backup successful. Date: %s. S3 folder path: %s. Bucket name: %s. Meta file name: %s", timeStampString, folderPathBackup, bucketName, fileNameMeta)
 }

@@ -50,7 +50,7 @@ func AddMetaEntry(dateStartBackup time.Time, dateFinalizedBackupFile time.Time, 
 	// Get file size of backup file
 	sizeBackupFile, err := files.GetFileSizeByDescriptor(backupFile)
 	if err != nil {
-		return fmt.Errorf("Error determining backup file size with 'GetFileSizeByDescriptor()' in 'AddMetaEntry'. File name: %s. Error: %v\n", filePathBackupFile, err)
+		return fmt.Errorf("Error determining backup file size with 'GetFileSizeByDescriptor()' in 'AddMetaEntry'. File name: %s. Error: %v", filePathBackupFile, err)
 	}
 
 	// Create a new row of data
@@ -66,13 +66,13 @@ func AddMetaEntry(dateStartBackup time.Time, dateFinalizedBackupFile time.Time, 
 
 	// Write the data row to the CSV file
 	if err := files.AddOneMetaRow(metaWriter, dataRow); err != nil {
-		return fmt.Errorf("Error adding one row to csv with 'AddOneMetaRow()' in 'AddMetaEntry'. File name: %s. Error: %v\n", filePathBackupFile, err)
+		return fmt.Errorf("Error adding one row to csv with 'AddOneMetaRow()' in 'AddMetaEntry'. File name: %s. Error: %v", filePathBackupFile, err)
 	}
 
 	// Flush and close CSV writer
 	metaWriter.Flush()
 	if err := metaWriter.Error(); err != nil {
-		return fmt.Errorf("Error flushing and closing csv writer with 'AddOneMetaRow()' in 'AddMetaEntry'. File name: %s. Error: %v\n", filePathBackupFile, err)
+		return fmt.Errorf("Error flushing and closing csv writer with 'AddOneMetaRow()' in 'AddMetaEntry'. File name: %s. Error: %v", filePathBackupFile, err)
 	}
 
 	return nil

@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-func NewS3Client(awsClientConfig *ClientConfig) (client *AWSS3, err error) {
+func NewAwsClient(awsClientConfig *AwsClientConfigData) (client *S3Client, err error) {
 	awsRegion := awsClientConfig.AwsRegion
 	awsAccessKeyId := awsClientConfig.AwsAccessKeyId
 	awsSecretKey := awsClientConfig.AwsSecretKey
@@ -24,5 +24,5 @@ func NewS3Client(awsClientConfig *ClientConfig) (client *AWSS3, err error) {
 	}
 
 	// Use the configuration to create an AWS service client (S3 client)
-	return &AWSS3{Client: s3.NewFromConfig(cfg)}, nil
+	return &S3Client{Client: s3.NewFromConfig(cfg)}, nil
 }

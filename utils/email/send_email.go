@@ -2,7 +2,7 @@ package email
 
 import "gopkg.in/gomail.v2"
 
-func (client *MailClients) SendEmail(senderEmail, recipientEmail, subject, body string) error {
+func (client *MailClient) SendEmail(senderEmail, recipientEmail, subject, body string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", senderEmail)
 	m.SetHeader("To", recipientEmail)

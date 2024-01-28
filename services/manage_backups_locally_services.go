@@ -17,7 +17,7 @@ func ManageBackupsLocally() error {
 		/////////////////////
 		err := files.DeleteLocalFolder(localBackupFolder)
 		if err != nil {
-			return fmt.Errorf("Error in 'ManageBackupsLocally' applying 'DeleteLocalFolder()'. Error: %v\n", err)
+			return fmt.Errorf("Error in 'ManageBackupsLocally' applying 'DeleteLocalFolder()'. Error: %v", err)
 		}
 	} else {
 		///////////////////////////////////////////////////////////////////////////////

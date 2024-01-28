@@ -6,40 +6,40 @@ import (
 	"fmt"
 )
 
-// Provide aws S3 connection configuration
-type ProductionConfigType struct {
-	AwsClientConfig *ClientConfig
-	BucketName      string
-	Err             error
-}
+// Retrieve configuration data (eg. aws region, access key) from .env file for production settings only
+// Base parameter for dependency injection of aws client (production)
+func AwsS3ProductionConfig() (S3ClientConfig *AwsClientConfigData, bucketName string,
+	err error) {
+	// Retrieve .env values by keys provided in config file
 
-func AwsS3ProductionConfig() (prodConfigOutput *ProductionConfigType) {
-	// Data provided in config file
-	awsRegion, err := envHandler.GetEnvValue(config.S3RegionEnvProd, "")
+	// AWS REGION
+	awsRegion, err := envHandler.GetEnvValue(config.S3RegionEnv, "")
 	if err != nil {
-		return &ProductionConfigType{AwsClientConfig: nil, BucketName: "", Err: fmt.Errorf("Cannot retrieve .env value for aws region in 'awsConfig()'. Env key: %s. No default value used. Error: %v", config.S3RegionEnvProd, err)}
+		return nil, "", fmt.Errorf("Cannot retrieve .env value for aws region in 'AwsS3ProductionConfig()'. Env key: %s. No default value has been employed. Error: %v", config.S3RegionEnv, err)
 	}
 
-	awsAccessKeyId, err := envHandler.GetEnvValue(config.S3AccessKeyEnvProd, "")
+	// AWS ACCESS KEY
+	awsAccessKeyId, err := envHandler.GetEnvValue(config.S3AccessKeyEnv, "")
 	if err != nil {
-		return &ProductionConfigType{AwsClientConfig: nil, BucketName: "", Err: fmt.Errorf("Cannot retrieve .env value for aws access key in 'awsConfig()'. Env key: %s. No default value used. Error: %v", config.S3AccessKeyEnvProd, err)}
+		return nil, "", fmt.Errorf("Cannot retrieve .env value for aws access key in 'AwsS3ProductionConfig()'. Env key: %s. No default value has been employed. Error: %v", config.S3AccessKeyEnv, err)
 	}
 
-	awsSecretKey, err := envHandler.GetEnvValue(config.S3SecretKeyEnvProd, "")
+	// AWS SECRET KEY
+	awsSecretKey, err := envHandler.GetEnvValue(config.S3SecretKeyEnv, "")
 	if err != nil {
-		return &ProductionConfigType{AwsClientConfig: nil, BucketName: "", Err: fmt.Errorf("Cannot retrieve .env value for aws secret key in 'awsConfig()'. Env key: %s. No default value used. Error: %v", config.S3SecretKeyEnvProd, err)}
+		return nil, "", fmt.Errorf("Cannot retrieve .env value for aws secret key in 'AwsS3ProductionConfig()'. Env key: %s. No default value has been employed. Error: %v", config.S3SecretKeyEnv, err)
 	}
 
-	awsClientConfig := &ClientConfig{AwsRegion: awsRegion,
+	// Configure AwsClientConfigData structure
+	awsClientConfig := &AwsClientConfigData{AwsRegion: awsRegion,
 		AwsAccessKeyId: awsAccessKeyId,
 		AwsSecretKey:   awsSecretKey}
 
-	// Bucket
-	// bucketName := os.Getenv(config.S3BucketEnvProd)
-	bucketName, err := envHandler.GetEnvValue(config.S3BucketEnvProd, "")
+	// S3 BUCKET
+	bucketName, err = envHandler.GetEnvValue(config.S3BucketEnv, "")
 	if err != nil {
-		return &ProductionConfigType{AwsClientConfig: nil, BucketName: "", Err: fmt.Errorf("Cannot retrieve .env value for Mongo URI in 'main.go'. Env key: %s. No default value used. Error: %v", config.S3BucketEnvProd, err)}
+		return nil, "", fmt.Errorf("Cannot retrieve .env value for Mongo URI in 'AwsS3ProductionConfig()'. Env key: %s. No default value has been employed. Error: %v", config.S3BucketEnv, err)
 	}
 
-	return &ProductionConfigType{AwsClientConfig: awsClientConfig, BucketName: bucketName, Err: nil}
+	return awsClientConfig, bucketName, nil
 }

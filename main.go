@@ -3,7 +3,8 @@ package main
 import (
 	"backupserver/config"
 	aws "backupserver/utils/aws"
-	cronJobs "backupserver/utils/cron"
+	cronJobs "backupserver/utils/cron/backup"
+	email "backupserver/utils/email"
 	envHandler "backupserver/utils/env"
 	logger "backupserver/utils/logs"
 	mongoDB "backupserver/utils/mongoDB"
@@ -76,13 +77,24 @@ func main() {
 	cron := cron.New()
 
 	// Cron Backup
-	// AWS S3 client config
-	prodConfigOutput := aws.AwsS3ProductionConfig()
-	if prodConfigOutput.Err != nil {
+	// AWS S3 client config production
+	s3ClientConfig, bucketName, err := aws.AwsS3ProductionConfig()
+	if err != nil {
 		logger.GetLogger().Error("Error in 'Backup' retrieving aws configuration using 'awsConfig()'. Error: ", err)
 		return
 	}
-	_, errCron1 := cron.AddFunc(config.IntervalBackup, func() { cronJobs.Backup(client, prodConfigOutput.AwsClientConfig, prodConfigOutput.BucketName) }) // Use the imported function
+
+	// Email client config production
+	emailClientConfig, err := email.EmailProductionConfig()
+	if err != nil {
+		logger.GetLogger().Error("Error in 'Backup' retrieving aws configuration using 'awsConfig()'. Error: ", err)
+		return
+	}
+
+	// Start cron job
+	_, errCron1 := cron.AddFunc(config.IntervalBackup, func() {
+		cronJobs.Backup(client, s3ClientConfig, emailClientConfig, bucketName)
+	}) // Use the imported function
 	if errCron1 != nil {
 		logger.GetLogger().Error("Error adding cron job 'Backup': ", errCron1)
 		return

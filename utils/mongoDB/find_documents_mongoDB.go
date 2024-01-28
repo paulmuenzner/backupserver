@@ -14,7 +14,7 @@ func (client *DatabaseClient) FindDocumentsInMongo(databaseName string, collecti
 	// Create a session for the database
 	session, err := client.MongoDB.StartSession()
 	if err != nil {
-		return fmt.Errorf("Error starting session with mongo client using 'StartSession()' in 'FindDocumentsInMongo'. Error: %v\n", err)
+		return fmt.Errorf("Error starting session with mongo client using 'StartSession()' in 'FindDocumentsInMongo'. Error: %v", err)
 	}
 	defer session.EndSession(context.Background())
 
@@ -26,7 +26,7 @@ func (client *DatabaseClient) FindDocumentsInMongo(databaseName string, collecti
 	documents, err := col.Find(context.TODO(), bson.D{}, options.Find().SetLimit(int64(interval)).SetSkip(int64(skip)))
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
-			return fmt.Errorf("Error retrieving data from collection with 'Find()' in 'FindDocumentsInMongo'. Collection: %s. Interval: %d. Skip: %d. Error: %v\n", collection, interval, skip, err)
+			return fmt.Errorf("Error retrieving data from collection with 'Find()' in 'FindDocumentsInMongo'. Collection: %s. Interval: %d. Skip: %d. Error: %v", collection, interval, skip, err)
 		} else {
 			return fmt.Errorf("Error when looping collections in 'FindDocumentsInMongo' from collection '%s' of database '%s' Error: %v", collection, databaseName, err)
 		}

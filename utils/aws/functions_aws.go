@@ -4,7 +4,6 @@ import (
 	files "backupserver/utils/files"
 	"context"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 
@@ -18,11 +17,11 @@ import (
 // /////////////////////////////////////////////////////////////////////
 // //// UPLOADER
 // Upload object to S3
-func (client *AWSS3) UploadFile(bucketName string, objectKey string, filePath string) error {
+func (client *S3Client) UploadFile(bucketName string, objectKey string, filePath string) error {
 	// Return existing function parameter if local file path not existing
 	exists, err := files.LocalFileExists(filePath)
 	if err != nil {
-		return fmt.Errorf("Error validating if upload file path exists in 'UploadFile' using 'LocalPathExists()'. File path %s. Error: %v\n", filePath, err)
+		return fmt.Errorf("Error validating if upload file path exists in 'UploadFile' using 'LocalPathExists()'. File path %s. Error: %v", filePath, err)
 	} else if exists == false {
 		return fmt.Errorf("Couldn't find file with file path '%s' in 'UploadFile' with 'GetFileSizeByPath()'.", filePath)
 	}
@@ -30,7 +29,7 @@ func (client *AWSS3) UploadFile(bucketName string, objectKey string, filePath st
 	// Define size of local file to upload
 	fileSize, err := files.GetFileSizeByPath(filePath)
 	if err != nil {
-		return fmt.Errorf("Couldn't define file size for file path '%s' in 'UploadFile' with 'GetFileSizeByPath()'. Error: %v\n", filePath, err)
+		return fmt.Errorf("Couldn't define file size for file path '%s' in 'UploadFile' with 'GetFileSizeByPath()'. Error: %v", filePath, err)
 	}
 
 	// If file size larger than 11MB stream file in chunks with uploadLargeObjectToS3().
@@ -38,12 +37,12 @@ func (client *AWSS3) UploadFile(bucketName string, objectKey string, filePath st
 	if fileSize < 11*1024*1024 {
 		err := client.uploadSmallObjectToS3(bucketName, objectKey, filePath)
 		if err != nil {
-			return fmt.Errorf("Error uploading file in 'UploadFile' with 'uploadSmallObjectToS3' of file path '%s' Error: %v\n", filePath, err)
+			return fmt.Errorf("Error uploading file in 'UploadFile' with 'uploadSmallObjectToS3' of file path '%s' Error: %v", filePath, err)
 		}
 	} else {
 		err := client.uploadLargeObjectToS3(bucketName, objectKey, filePath)
 		if err != nil {
-			return fmt.Errorf("Error uploading file in 'UploadFile' with 'uploadLargeObjectToS3' of file path '%s' Error: %v\n", filePath, err)
+			return fmt.Errorf("Error uploading file in 'UploadFile' with 'uploadLargeObjectToS3' of file path '%s' Error: %v", filePath, err)
 		}
 	}
 	return nil
@@ -52,7 +51,7 @@ func (client *AWSS3) UploadFile(bucketName string, objectKey string, filePath st
 // /////////////////////////////////////////////////////////////////////////////////
 // Upload files breaks large data into parts and uploads the parts concurrently
 // ////////////////////////////////////////////////////////////////////////////
-func (awsS3 *AWSS3) uploadLargeObjectToS3(bucketName, objectKey, filePath string) error {
+func (awsS3 *S3Client) uploadLargeObjectToS3(bucketName, objectKey, filePath string) error {
 	// Open file
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -74,7 +73,7 @@ func (awsS3 *AWSS3) uploadLargeObjectToS3(bucketName, objectKey, filePath string
 	})
 
 	if err != nil {
-		return fmt.Errorf("Couldn't upload large object in 'uploadLargeObjectToS3' with 'uploader.Upload()' to bucket %v with object key:%v. Here's why: %v\n",
+		return fmt.Errorf("Couldn't upload large object in 'uploadLargeObjectToS3' with 'uploader.Upload()' to bucket %v with object key:%v. Here's why: %v",
 			bucketName, objectKey, err)
 	}
 
@@ -84,11 +83,11 @@ func (awsS3 *AWSS3) uploadLargeObjectToS3(bucketName, objectKey, filePath string
 // ////////////////////////////////////////////////////////
 // Upload file
 // ///////////
-func (awsS3 *AWSS3) uploadSmallObjectToS3(bucketName, objectKey, fileName string) error {
+func (awsS3 *S3Client) uploadSmallObjectToS3(bucketName, objectKey, fileName string) error {
 	// Open file
 	file, err := os.Open(fileName)
 	if err != nil {
-		return fmt.Errorf("Couldn't open file %s to upload. Error in 'uploadSmallObjectToS3' from 'os.Open(fileName)': %v\n", fileName, err)
+		return fmt.Errorf("Couldn't open file %s to upload. Error in 'uploadSmallObjectToS3' from 'os.Open(fileName)': %v", fileName, err)
 	} else {
 		defer file.Close()
 		_, err = awsS3.Client.PutObject(context.TODO(), &s3.PutObjectInput{
@@ -97,7 +96,7 @@ func (awsS3 *AWSS3) uploadSmallObjectToS3(bucketName, objectKey, fileName string
 			Body:   file,
 		})
 		if err != nil {
-			return fmt.Errorf("Couldn't upload file %s to bucket %v with object key:%v. Error in 'uploadSmallObjectToS3' from 'awsS3.Client.PutObject()': %v\n", fileName, bucketName, objectKey, err)
+			return fmt.Errorf("Couldn't upload file %s to bucket %v with object key:%v. Error in 'uploadSmallObjectToS3' from 'awsS3.Client.PutObject()': %v", fileName, bucketName, objectKey, err)
 		}
 	}
 	return err
@@ -106,14 +105,14 @@ func (awsS3 *AWSS3) uploadSmallObjectToS3(bucketName, objectKey, fileName string
 // ////////////////////////////////////////////////////////////
 // Validate if S3 bucket exists
 // ////////////////////////////////
-func (awsS3 *AWSS3) BucketExists(bucketName string) (bool, error) {
+func (awsS3 *S3Client) BucketExists(bucketName string) (bool, error) {
 	_, err := awsS3.Client.HeadBucket(context.TODO(), &s3.HeadBucketInput{
 		Bucket: aws.String(bucketName),
 	})
 
 	exists := true
 	if err != nil {
-		err = fmt.Errorf("Either no access to bucket %s or another error determined in 'BucketExists' with 'HeadBucket()'. Error: %v\n", bucketName, err)
+		err = fmt.Errorf("Either no access to bucket %s or another error determined in 'BucketExists' with 'HeadBucket()'. Error: %v", bucketName, err)
 		exists = false
 	}
 
@@ -123,20 +122,18 @@ func (awsS3 *AWSS3) BucketExists(bucketName string) (bool, error) {
 // ////////////////////////////////////////////////////////////
 // ////////////////////////////////////////////////////////////
 // Delete object from aws S3 bucket
-func (awsS3 *AWSS3) DeleteObjects(bucketName string, objectKeys []string) error {
+func (awsS3 *S3Client) DeleteObjects(bucketName string, objectKeys []string) error {
 
 	var objectIds []types.ObjectIdentifier
 	for _, key := range objectKeys {
 		objectIds = append(objectIds, types.ObjectIdentifier{Key: aws.String(key)})
 	}
-	output, err := awsS3.Client.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
+	_, err := awsS3.Client.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
 		Bucket: aws.String(bucketName),
 		Delete: &types.Delete{Objects: objectIds},
 	})
 	if err != nil {
-		log.Printf("Couldn't delete objects from bucket %v. Here's why: %v\n", bucketName, err)
-	} else {
-		log.Printf("Deleted %v objects.\n", len(output.Deleted))
+		return fmt.Errorf("Couldn't delete objects from bucket %v. Here's why: %v", bucketName, err)
 	}
 	return err
 }
@@ -144,7 +141,7 @@ func (awsS3 *AWSS3) DeleteObjects(bucketName string, objectKeys []string) error 
 // //////////////////////////////////////////////////////////////////////////////////////
 // DeleteFolderContents recursively deletes all objects and subfolders within a folder
 // ////////////////////
-func (awsS3 *AWSS3) DeleteFolderContents(bucketName, folderPrefix string) error {
+func (awsS3 *S3Client) DeleteFolderContents(bucketName, folderPrefix string) error {
 	for {
 		// List objects with pagination
 		result, err := awsS3.Client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
@@ -153,7 +150,7 @@ func (awsS3 *AWSS3) DeleteFolderContents(bucketName, folderPrefix string) error 
 			Delimiter: aws.String("/"), // Use delimiter to group objects by common prefixes
 		})
 		if err != nil {
-			return fmt.Errorf("Error listing objects in S3 path with 'ListObjectsV2()' in 'DeleteFolderContents'. Bucket: %s. Folder prefix: %s. Error: %v\n", bucketName, folderPrefix, err)
+			return fmt.Errorf("Error listing objects in S3 path with 'ListObjectsV2()' in 'DeleteFolderContents'. Bucket: %s. Folder prefix: %s. Error: %v", bucketName, folderPrefix, err)
 		}
 
 		// Delete objects
@@ -163,7 +160,7 @@ func (awsS3 *AWSS3) DeleteFolderContents(bucketName, folderPrefix string) error 
 				Key:    object.Key,
 			})
 			if err != nil {
-				return fmt.Errorf("Error deleting objects in S3 path with 'DeleteObject()' in 'DeleteFolderContents'. Bucket: %s. Folder prefix: %s. Object key: %s. Error: %v\n", bucketName, folderPrefix, *object.Key, err)
+				return fmt.Errorf("Error deleting objects in S3 path with 'DeleteObject()' in 'DeleteFolderContents'. Bucket: %s. Folder prefix: %s. Object key: %s. Error: %v", bucketName, folderPrefix, *object.Key, err)
 			}
 		}
 
@@ -171,7 +168,7 @@ func (awsS3 *AWSS3) DeleteFolderContents(bucketName, folderPrefix string) error 
 		for _, commonPrefix := range result.CommonPrefixes {
 			err := awsS3.DeleteFolderContents(bucketName, *commonPrefix.Prefix)
 			if err != nil {
-				return fmt.Errorf("Error listing objects in S3 path with 'ListObjectsV2()' in 'DeleteFolderContents'. Bucket: %s. Folder prefix: %s. Error: %v\n", bucketName, folderPrefix, err)
+				return fmt.Errorf("Error listing objects in S3 path with 'ListObjectsV2()' in 'DeleteFolderContents'. Bucket: %s. Folder prefix: %s. Error: %v", bucketName, folderPrefix, err)
 			}
 		}
 
@@ -189,7 +186,7 @@ func (awsS3 *AWSS3) DeleteFolderContents(bucketName, folderPrefix string) error 
 // ////////////////////////////////////////////////////////////
 // Check if object in S3 bucket exists
 // ///////////////////////////////////
-func (awsS3 *AWSS3) S3ObjectExists(key, bucketName string) (bool, error) {
+func (awsS3 *S3Client) S3ObjectExists(key, bucketName string) (bool, error) {
 	// Create a HeadObjectInput with the specified key and bucket
 	input := &s3.HeadObjectInput{
 		Bucket: aws.String(bucketName),
@@ -215,7 +212,7 @@ func (awsS3 *AWSS3) S3ObjectExists(key, bucketName string) (bool, error) {
 // ////////////////////////////////////////////////////////////
 // List all virtual folders inside a virtual S3 folder (folderPrefix)
 // ///////////////////////////////////
-func (awsS3 *AWSS3) ListFolderNamesS3(bucketName, folderPrefix string) ([]string, error) {
+func (awsS3 *S3Client) ListFolderNamesS3(bucketName, folderPrefix string) ([]string, error) {
 	var folderNames []string
 
 	for {

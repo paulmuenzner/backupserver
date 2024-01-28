@@ -13,7 +13,7 @@ func CreateMetaDataFile(folderPath, fileNameMeta string) (err error) {
 	filePath := folderPath + "/" + fileNameMeta
 	file, err := os.Create(filePath)
 	if err != nil {
-		return fmt.Errorf("Error creating file with 'os.Create()' in 'CreateMetaDataFile'. File name: %s. Error: %v\n", filePath, err)
+		return fmt.Errorf("Error creating file with 'os.Create()' in 'CreateMetaDataFile'. File name: %s. Error: %v", filePath, err)
 	}
 
 	defer file.Close()
@@ -22,7 +22,7 @@ func CreateMetaDataFile(folderPath, fileNameMeta string) (err error) {
 	var headers []string = config.MetaFileHeaders
 	err = files.WriteHeadersToCsvFile(file, headers)
 	if err != nil {
-		return fmt.Errorf("Error writing header to csv file with 'WriteHeadersToCsvFile()' in 'CreateMetaDataFile'. File name: %s. Error: %v\n", filePath, err)
+		return fmt.Errorf("Error writing header to csv file with 'WriteHeadersToCsvFile()' in 'CreateMetaDataFile'. File name: %s. Error: %v", filePath, err)
 	}
 
 	return nil

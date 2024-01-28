@@ -40,7 +40,7 @@ func WriteBSONToCSV(bsonData []bson.M, csvFilePath string) error {
 			header = append(header, key)
 		}
 		if err := writer.Write(header); err != nil {
-			return fmt.Errorf("Error writing header to csv file with 'writer.Write()' in 'WriteBSONToCSV'. File name: %s. Error: %v\n", csvFilePath, err)
+			return fmt.Errorf("Error writing header to csv file with 'writer.Write()' in 'WriteBSONToCSV'. File name: %s. Error: %v", csvFilePath, err)
 		}
 		existingHeader = header
 	}
@@ -88,14 +88,14 @@ func WriteBSONToCSV(bsonData []bson.M, csvFilePath string) error {
 	// Receive rows from the channel and write to CSV
 	for row := range rowChannel {
 		if err := writer.Write(row); err != nil {
-			return fmt.Errorf("Error writing received rows from channel with 'writer.Write()' in 'WriteBSONToCSV'. File name: %s. Error: %v\n", csvFilePath, err)
+			return fmt.Errorf("Error writing received rows from channel with 'writer.Write()' in 'WriteBSONToCSV'. File name: %s. Error: %v", csvFilePath, err)
 		}
 	}
 
 	// Flush and close CSV writer
 	writer.Flush()
 	if err := writer.Error(); err != nil {
-		return fmt.Errorf("Error flushing and closing csv writer with 'writer.Flush()' in 'WriteBSONToCSV'. File name: %s. Error: %v\n", csvFilePath, err)
+		return fmt.Errorf("Error flushing and closing csv writer with 'writer.Flush()' in 'WriteBSONToCSV'. File name: %s. Error: %v", csvFilePath, err)
 	}
 
 	return nil

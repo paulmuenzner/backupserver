@@ -62,14 +62,17 @@ This Golang-based server is designed to automate recurring backups of MongoDB da
 
 
 ### Features
-- Recurring Backups: Define automatic, scheduled backups using cron jobs.
-- CSV Format: Each MongoDB collection is saved as a CSV file, offering simplicity and human readability. 
-- Define max and limit size of csv files. Large collections are splitted into multiple numbered files.
-- AWS S3 Integration: Backups are securely uploaded to AWS S3 for reliable and scalable storage. Multipart uploads are applied automatically for large csv files improving throughput by uploading a number of parts in parallel.
-- Pagination implemented to handle large object lists with AWS S3.
-- Configuration Flexibility: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups through a flexible configuration system.
-- Circular Buffer: Implement a circular buffer to manage and optimize backup storage.
-- Store backups optionally on your local machine.
+- **Recurring Backups**: Define automatic, scheduled backups using cron jobs.
+- **CSV Format**: Each MongoDB collection is saved as a CSV file, offering simplicity and human readability. 
+- **Configuration Flexibility**: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups through a flexible configuration system.
+- **Limit File Size**: Define max and limit size of csv files. Large collections are splitted into multiple numbered files.
+- **Dependency Injection (DI) setup**: This Golang webserver boasts a robust architecture designed for flexibility, reduced coupling and testibiliy through a dedicated Dependency Injection (DI) setup. The core functionalities of database communications, and AWS operations and sending email notifications are seamlessly integrated, providing a cohesive and modular solution.
+- **AWS S3 Integration**: Backups are securely uploaded to AWS S3 for reliable and scalable storage. Multipart uploads are applied automatically for large csv files improving throughput by uploading a number of parts in parallel.
+- **S3 Pagination**: Pagination implemented to handle large object lists with AWS S3.
+- **Circular Buffer**: Implement a circular buffer to manage and optimize backup storage.
+- **Local Backups**: Store backups optionally on your local machine.
+- **Robust Error Handling Mechanism**: Any encountered errors are diligently logged to the designated log folder and simultaneously dispatched via email notifications.
+
 
 
 ### Advantage CSV Backups
@@ -97,7 +100,8 @@ Prior to launching the program, clone the repo, install go dependencies and ensu
 
 
 ### Prerequisites 
-- Make sure MongoDB is installed and available locally.
+- Make sure MongoDB is installed and available.
+- Make sure a properly configured [AWS S3 Bucket](https://aws.amazon.com/s3/?nc1=h_ls) is ready.
 
 
 ### Installation
@@ -116,7 +120,7 @@ Before running the program, you need to set up the required environment variable
 
 #### Mandatory Environment Variables
 
-AWS S3 Configuration:
+AWS S3 & MongoDB Configuration:
 
 If your application involves interactions with AWS S3, you must provide the following key-value pairs in the .env file:
 
@@ -124,6 +128,7 @@ If your application involves interactions with AWS S3, you must provide the foll
 - AWS_REGION: The AWS region where your S3 bucket is located.
 - AWS_ACCESS_KEY_ID: Your AWS access key ID.
 - AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
+- MONGO_URI: MongoDB URI (Uniform Resource Identifier) 
 
 #### Optional Environment Variables
 
@@ -154,45 +159,51 @@ AWS_REGION=your-aws-region
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
 
+# Database Configuration
+MONGO_URI=mongodb://localhost:27017
+
 # Email Notification Configuration (Optional)
 EMAIL_PROVIDER_PASSWORD=your-email-provider-password
 EMAIL_PROVIDER_USERNAME=your-email-provider-username
-SMTP_PORT_ENV=your-smtp-port
+EMAIL_PROVIDER_SMTP_PORT=your-smtp-port
 EMAIL_PROVIDER_HOST=your-email-provider-host
 EMAIL_ADDRESS_SENDER_BACKUP=your-sender-email-address
 EMAIL_ADDRESS_RECEIVER_BACKUP=your-receiver-email-address
 
    ```
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Configuration
 <a name="configuration"></a>
 The following configurations can be modified in the config file located at => /config/base_config.go
 
-| Key                               |  Description |  Example 
-|:-----                             |:---------    |:---------    
-| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Backup file names are assigned by day. All logs generated in one day are collected in a designated backup file. This parameter (of type int) indicates after how many days log files are stored before they are deleted automatically. |    5   
-| NameDatabase                      |  Configure your database name (of type string) you like to backup. It must be 100% identical to the MongoDB database name. |  "MyProjectDB"      
-| FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | "mydbbackup"     
-| FileNameMetaData                  |File name (of type string) for meta data file containing information on each created backup file |  "meta_data.csv"         
-| IntervalBackup                    |Cron-like syntax (of type string) format to define the recurring schedule of your automatic backup  |"@every 6h"
-| MaxFileSizeInBytes                | The maximum size (of type int64) of a backup file. Be aware of the max upload size permitted by AWS S3. Of the configured file size is not sufficient, a new backup file is created with the same name plus an added sequential numbering at the end           | 2 * 1024 * 1024 * 1024
-| SendEmailNotifications            |Decide whether you want to send email notifications or not. Emails are send in both cases error and successfully completed backup. Type is bool    | false
-| EmailProviderUserNameEnv          |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_PROVIDER_USERNAME"
-| EmailProviderPasswordEnv          |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_PROVIDER_PASSWORD"
-| SmtpPortEnv                       | Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.          | "SMTP_PORT_ENV"
-| HostEmailProviderEnv              |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_PROVIDER_HOST"
-| EmailAddressSenderEnv             |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_ADDRESS_SENDER_BACKUP"
-| EmailAddressReceiverEnv           |Name of .env key (of type string). The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| "EMAIL_ADDRESS_RECEIVER_BACKUP"
-| IsCircularBufferActivatedS3       |Decide whether you like to implement a circular buffer or not. If 'false', all backups on S3 are stored without deleting them, which might increase costs depending on backup interval and database size. Type is bool. | true
-| MaxBackupsS3                      |Configuration for circular buffer (of type int). If IsCircularBufferActivatedS3 is set to true, circular buffer deletes backups older than latest number of MaxBackupsS3 in S3. In this example, the 12 newest backups are stored on S3 only - older ones are deleted. | 12
-| UseLocalBackupStorage             |Decide (with type bool) if you like to store backups on your local machine (where this program is running), too. Type is bool.| true 
-| IsCircularBufferActivatedLocally  | Same function as 'IsCircularBufferActivatedS3' but for local backup storage. | true
-| MaxBackupsLocally                 | Same as 'MaxBackupsS3' but for local backup storage. If MaxBackupsLocally is set to true, circular buffer deletes backups older than latest number of MaxBackupsLocally locally.| 10
-| S3BucketEnvProd                   |Name of .env key (of type string) to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be created in your AWS account.| "BUCKET_NAME"
-| S3RegionEnvProd                   |Name of .env key (of type string) to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| "AWS_REGION"
-| S3AccessKeyEnvProd                |Name of .env key (of type string) to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| "AWS_ACCESS_KEY_ID"
-| S3SecretKeyEnvProd                |Name of .env key (of type string) to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| "AWS_SECRET_ACCESS_KEY"    
+| Key                               |  Description |  Type |  Example 
+|:-----                             |:---------    |:---------  |:---------    
+| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Backup file names are assigned by day. All logs generated in one day are collected in a designated backup file. This parameter indicates after how many days log files are stored before they are deleted automatically. | int|   5   
+| NameDatabase                      |  Configure your database name you like to backup. It must be 100% identical to the MongoDB database name. | string| "MyProjectDB"      
+| FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | string|"mydbbackup"     
+| FileNameMetaData                  |File name for meta data file containing information on each created backup file | string| "meta_data.csv"         
+| IntervalBackup                    |Cron-like syntax format to define the recurring schedule of your automatic backup  |string|"@every 6h"
+| MaxFileSizeInBytes                | The maximum size of a backup file. Be aware of the max upload size permitted by AWS S3. Of the configured file size is not sufficient, a new backup file is created with the same name plus an added sequential numbering at the end           |int64| 2 * 1024 * 1024 * 1024
+| SendEmailNotifications            |Decide whether you want to send email notifications or not. Emails are send in both cases error and successfully completed backup. |bool| false
+| EmailProviderUserNameEnv          |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.|string| "EMAIL_PROVIDER_USERNAME"
+| EmailProviderPasswordEnv          |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.|string| "EMAIL_PROVIDER_PASSWORD"
+| EmailProviderSmtpPortEnv                       | Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.          |string| "EMAIL_PROVIDER_SMTP_PORT"
+| EmailProviderHostEnv              |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| string|"EMAIL_PROVIDER_HOST"
+| EmailAddressSenderEnv             |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| string|"EMAIL_ADDRESS_SENDER_BACKUP"
+| EmailAddressReceiverEnv           |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.| string|"EMAIL_ADDRESS_RECEIVER_BACKUP"
+| IsCircularBufferActivatedS3       |Decide whether you like to implement a circular buffer or not. If 'false', all backups on S3 are stored without deleting them, which might increase costs depending on backup interval and database size. | bool|true
+| MaxBackupsS3                      |Configuration for circular buffer. If IsCircularBufferActivatedS3 is set to true, circular buffer deletes backups older than latest number of MaxBackupsS3 in S3. In this example, the 12 newest backups are stored on S3 only - older ones are deleted. | int|12
+| UseLocalBackupStorage             |Decide if you like to store backups on your local machine (where this program is running), too.|bool| true 
+| IsCircularBufferActivatedLocally  | Same function as 'IsCircularBufferActivatedS3' but for local backup storage. |bool| true
+| MaxBackupsLocally                 | Same as 'MaxBackupsS3' but for local backup storage. If MaxBackupsLocally is set to true, circular buffer deletes backups older than latest number of MaxBackupsLocally locally.|int| 10
+| S3BucketEnv                   |Name of .env key to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be created in your AWS account.|string| "BUCKET_NAME"
+| S3RegionEnv                   |Name of .env key to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| string|"AWS_REGION"
+| S3AccessKeyEnv                |Name of .env key to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| string|"AWS_ACCESS_KEY_ID"
+| S3SecretKeyEnv                |Name of .env key to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| string|"AWS_SECRET_ACCESS_KEY"    
+| MongoURIEnv                |Name of .env key to define a MongoDB URI (Uniform Resource Identifier). The value behind this .env key is placed in your .env file. |string| "MONGO_URI"
+
+
 
 ### Run program
 
@@ -208,7 +219,7 @@ The following configurations can be modified in the config file located at => /c
 
 - [x] Add optional circular buffer feature for S3 
 - [x] Add optional circular buffer feature for local storage
-- [x] Add optional email email notification feature
+- [x] Add optional email notification feature
 - [ ] Add gzip compression feature for entire backup files
 - [ ] Extend testing
 - [ ] Add option to also backup SQL databases besides MongoDB

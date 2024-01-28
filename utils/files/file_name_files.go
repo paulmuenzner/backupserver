@@ -13,7 +13,7 @@ func DetermineBackupFileName(fileName string, fileNumber int, collectionName str
 	// Return existing function parameter if file path not existing
 	exists, err := LocalFileExists(filePath)
 	if err != nil {
-		return "", fileNumber, "", fmt.Errorf("Error validating if file path exists in 'DetermineBackupFileName' using 'LocalPathExists()'. File path %s. Error: %v\n", filePath, err)
+		return "", fileNumber, "", fmt.Errorf("Error validating if file path exists in 'DetermineBackupFileName' using 'LocalPathExists()'. File path %s. Error: %v", filePath, err)
 	} else if exists == false {
 		return fileName, fileNumber, fileName, nil
 	}

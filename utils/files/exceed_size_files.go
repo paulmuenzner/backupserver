@@ -12,13 +12,13 @@ func WillExceedBackupFileSize(dataToAdd *[]primitive.M, filePath string) (fileTo
 	// Determine size of currently used backup file
 	existingFileSize, err := GetFileSizeByPath(filePath)
 	if err != nil {
-		return true, fmt.Errorf("Error in 'WillExceedBackupFileSize' determining size of file '%s' with 'GetFileSizeByPath()' documents. Error: %v\n", filePath, err)
+		return true, fmt.Errorf("Error in 'WillExceedBackupFileSize' determining size of file '%s' with 'GetFileSizeByPath()' documents. Error: %v", filePath, err)
 	}
 
 	// Determine size of new data (mongo documents) to add to currently used backup file
 	sizeBson, err := bsonHandler.BsonSizeInBytes(*dataToAdd)
 	if err != nil {
-		return true, fmt.Errorf("Error in 'WillExceedBackupFileSize' determining size of retrieved database documents with 'BsonSizeInBytes()'. Error: %v\n", err)
+		return true, fmt.Errorf("Error in 'WillExceedBackupFileSize' determining size of retrieved database documents with 'BsonSizeInBytes()'. Error: %v", err)
 	}
 
 	// Determine if backup file would exceed file size if new data would be added

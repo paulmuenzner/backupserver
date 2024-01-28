@@ -13,7 +13,7 @@ import (
 // Add one row to CSV file
 func AddOneCsvRow(writer *csv.Writer, row []string) error {
 	if err := writer.Write(row); err != nil {
-		return fmt.Errorf("Error adding csv row to file with 'writer.Write()' in 'AddOneCsvRow'. Error: %v\n", err)
+		return fmt.Errorf("Error adding csv row to file with 'writer.Write()' in 'AddOneCsvRow'. Error: %v", err)
 	}
 	return nil
 }
@@ -34,7 +34,7 @@ func AddOneMetaRow(writer *csv.Writer, dataRow config.RowTypesMeta) error {
 
 	// Write row to csv file
 	if err := writer.Write(stringSlice); err != nil {
-		return fmt.Errorf("Error adding meta row with 'writer.Write()' in 'AddOneMetaRow'. Error: %v\n", err)
+		return fmt.Errorf("Error adding meta row with 'writer.Write()' in 'AddOneMetaRow'. Error: %v", err)
 	}
 	return nil
 }
@@ -45,13 +45,13 @@ func WriteHeadersToCsvFile(file *os.File, headers []string) error {
 	writer := csv.NewWriter(file)
 
 	if err := writer.Write(headers); err != nil {
-		return fmt.Errorf("Error writing header header to file with 'writer.Write()' in 'WriteHeadersToCsvFile'. Error: %v\n", err)
+		return fmt.Errorf("Error writing header header to file with 'writer.Write()' in 'WriteHeadersToCsvFile'. Error: %v", err)
 	}
 
 	writer.Flush()
 
 	if err := writer.Error(); err != nil {
-		return fmt.Errorf("Error flushing csv writer with 'writer.Error()' in 'WriteHeadersToCsvFile'. Error: %v\n", err)
+		return fmt.Errorf("Error flushing csv writer with 'writer.Error()' in 'WriteHeadersToCsvFile'. Error: %v", err)
 	}
 
 	return nil

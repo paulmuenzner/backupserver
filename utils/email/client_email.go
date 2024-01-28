@@ -1,14 +1,16 @@
 package email
 
-import "gopkg.in/gomail.v2"
+import (
+	"fmt"
 
-type ClientConfigData struct {
-	Host         string
-	SmtpUsername string
-	SmtpPassword string
-	SmtpPort     int
-}
+	"gopkg.in/gomail.v2"
+)
 
-func EmailClient(configData *ClientConfigData) (client *gomail.Dialer) {
-	return gomail.NewDialer(configData.Host, configData.SmtpPort, configData.SmtpUsername, configData.SmtpPassword)
+func NewEmailClient(configData *EmailClientConfigData) (client *MailClient, err error) {
+	dialer := gomail.NewDialer(configData.Host, configData.SmtpPort, configData.SmtpUsername, configData.SmtpPassword)
+	if dialer == nil {
+		return nil, fmt.Errorf("Failed to create dialer in 'NewEmailClient()' using email client config data: %+v", configData)
+	}
+
+	return &MailClient{MyEmailClient: dialer}, nil
 }
