@@ -10,14 +10,14 @@ func TestConcatenateStrings(t *testing.T) {
 		input    []string
 		expected string
 	}{
-		{[]string{"Testing", " ", "goroutine", " ", "concurrency"}, "Testing goroutine concurrency"},
+		{[]string{"Testing", " ", "goroutine", " ", "concurrency", " ", "now."}, "Testing goroutine concurrency now."},
 		{[]string{"Separate", " ", "file", " ", "test"}, "Separate file test"},
-		{[]string{"Go", " ", "unit", " ", "testing"}, "Go unit testing"},
-		{[]string{"Multiple", " ", "test", " ", "cases"}, "Multiple test cases"},
-		{[]string{"Concurrent", " ", "execution", " ", "example"}, "Concurrent execution example"},
+		{[]string{"Go", " ", "testing"}, "Go testing"},
+		{[]string{"Multiple", " ", "test", " ", "cases", " ", "are", " ", "possible."}, "Multiple test cases are possible."},
+		{[]string{"Another", " ", "concurrent", " ", "execution", " ", "example"}, "Another concurrent execution example"},
 		{[]string{"Simple", " ", "Golang", " ", "tests"}, "Simple Golang tests"},
 		{[]string{"Easy", " ", "to", " ", "understand"}, "Easy to understand"},
-		{[]string{"More", " ", "test", " ", "scenarios"}, "More test scenarios"},
+		{[]string{"Short", " ", "test", "."}, "Short test."},
 	}
 
 	var wg sync.WaitGroup

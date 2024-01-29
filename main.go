@@ -1,15 +1,16 @@
 package main
 
 import (
-	"backupserver/config"
-	aws "backupserver/utils/aws"
-	cronJobs "backupserver/utils/cron/backup"
-	email "backupserver/utils/email"
-	envHandler "backupserver/utils/env"
-	logger "backupserver/utils/logs"
-	mongoDB "backupserver/utils/mongoDB"
 	"context"
 	"time"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	cronJobs "github.com/paulmuenzner/golang-backupserver/cron/backup"
+	aws "github.com/paulmuenzner/golang-backupserver/utils/aws"
+	email "github.com/paulmuenzner/golang-backupserver/utils/email"
+	envHandler "github.com/paulmuenzner/golang-backupserver/utils/env"
+	logger "github.com/paulmuenzner/golang-backupserver/utils/logs"
+	mongoDB "github.com/paulmuenzner/golang-backupserver/utils/mongoDB"
 
 	"github.com/joho/godotenv"
 	"github.com/robfig/cron/v3"

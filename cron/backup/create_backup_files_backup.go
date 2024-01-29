@@ -1,16 +1,17 @@
 package backup
 
 import (
-	"backupserver/config"
-	services "backupserver/services"
-	data "backupserver/utils/csv"
-	date "backupserver/utils/date"
-	files "backupserver/utils/files"
-	mongoDB "backupserver/utils/mongoDB"
 	"fmt"
 	"math"
 	"os"
 	"time"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	services "github.com/paulmuenzner/golang-backupserver/services"
+	data "github.com/paulmuenzner/golang-backupserver/utils/csv"
+	date "github.com/paulmuenzner/golang-backupserver/utils/date"
+	files "github.com/paulmuenzner/golang-backupserver/utils/files"
+	mongoDB "github.com/paulmuenzner/golang-backupserver/utils/mongoDB"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -19,7 +20,7 @@ func CreateBackupFiles(databaseClientSetup *mongoDB.MethodConfig, databaseName s
 
 	timeStampString := date.TimeStampSlug(timeStamp)
 
-	/////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////
 	// Fetch Names of All Collections in the Database. Result is a list of type []string.
 	collections, err := databaseClientSetup.MethodInterface.GetAllCollections(databaseName)
 	if err != nil {

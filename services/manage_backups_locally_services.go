@@ -1,11 +1,12 @@
 package services
 
 import (
-	"backupserver/config"
-	files "backupserver/utils/files"
-	"backupserver/utils/helper"
-	logger "backupserver/utils/logs"
 	"fmt"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	files "github.com/paulmuenzner/golang-backupserver/utils/files"
+	"github.com/paulmuenzner/golang-backupserver/utils/helper"
+	logger "github.com/paulmuenzner/golang-backupserver/utils/logs"
 )
 
 func ManageBackupsLocally() error {

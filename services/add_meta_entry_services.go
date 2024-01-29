@@ -1,13 +1,14 @@
 package services
 
 import (
-	"backupserver/config"
-	files "backupserver/utils/files"
 	"encoding/csv"
 	"fmt"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	files "github.com/paulmuenzner/golang-backupserver/utils/files"
 )
 
 // Add row of meta data for one csv file

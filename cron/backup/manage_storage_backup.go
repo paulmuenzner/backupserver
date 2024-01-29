@@ -1,9 +1,10 @@
 package backup
 
 import (
-	services "backupserver/services"
-	"backupserver/utils/aws"
 	"fmt"
+
+	services "github.com/paulmuenzner/golang-backupserver/services"
+	"github.com/paulmuenzner/golang-backupserver/utils/aws"
 )
 
 func ManageStorages(folderPathBackup string, metaFileName string, awsClientConfig *aws.AwsClientConfigData, bucketName string) error {

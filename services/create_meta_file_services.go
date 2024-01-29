@@ -1,10 +1,11 @@
 package services
 
 import (
-	"backupserver/config"
-	files "backupserver/utils/files"
 	"fmt"
 	"os"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	files "github.com/paulmuenzner/golang-backupserver/utils/files"
 )
 
 // Create csv file for meta data of all created backup files

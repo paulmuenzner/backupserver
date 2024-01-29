@@ -1,11 +1,12 @@
 package services
 
 import (
-	handleBson "backupserver/utils/bson"
 	"encoding/csv"
 	"fmt"
 	"os"
 	"sync"
+
+	handleBson "github.com/paulmuenzner/golang-backupserver/utils/bson"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

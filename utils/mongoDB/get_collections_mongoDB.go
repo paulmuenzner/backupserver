@@ -1,9 +1,10 @@
 package mongoDB
 
 import (
-	logger "backupserver/utils/logs"
 	"context"
 	"fmt"
+
+	logger "github.com/paulmuenzner/golang-backupserver/utils/logs"
 
 	"go.mongodb.org/mongo-driver/bson"
 )

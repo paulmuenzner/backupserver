@@ -1,12 +1,13 @@
 package files
 
 import (
-	"backupserver/config"
 	"encoding/csv"
 	"fmt"
 	"os"
 	"reflect"
 	"strconv"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
 )
 
 // /////////////////////////////////////////////////////////////////////////

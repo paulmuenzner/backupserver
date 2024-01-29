@@ -1,11 +1,12 @@
 package aws
 
 import (
-	files "backupserver/utils/files"
 	"context"
 	"fmt"
 	"os"
 	"strings"
+
+	files "github.com/paulmuenzner/golang-backupserver/utils/files"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"

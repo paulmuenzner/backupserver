@@ -1,11 +1,12 @@
 package services
 
 import (
-	config "backupserver/config"
-	aws "backupserver/utils/aws"
-	"backupserver/utils/helper"
 	"fmt"
 	"regexp"
+
+	config "github.com/paulmuenzner/golang-backupserver/config"
+	aws "github.com/paulmuenzner/golang-backupserver/utils/aws"
+	"github.com/paulmuenzner/golang-backupserver/utils/helper"
 )
 
 // This backup server can optionally be used as a ring memory. Due to this, it is needed to keep the newest backups of number n

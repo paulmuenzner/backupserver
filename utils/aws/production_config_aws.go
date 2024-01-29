@@ -1,9 +1,10 @@
 package aws
 
 import (
-	"backupserver/config"
-	envHandler "backupserver/utils/env"
 	"fmt"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	envHandler "github.com/paulmuenzner/golang-backupserver/utils/env"
 )
 
 // Retrieve configuration data (eg. aws region, access key) from .env file for production settings only

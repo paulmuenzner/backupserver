@@ -1,12 +1,13 @@
 package csv
 
 import (
-	bsonHandler "backupserver/utils/bson"
-	"backupserver/utils/files"
 	"encoding/csv"
 	"fmt"
 	"os"
 	"sync"
+
+	bsonHandler "github.com/paulmuenzner/golang-backupserver/utils/bson"
+	"github.com/paulmuenzner/golang-backupserver/utils/files"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

@@ -1,13 +1,14 @@
 package log
 
 import (
-	"backupserver/config"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"regexp"
 	"time"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
 
 	"github.com/sirupsen/logrus"
 )

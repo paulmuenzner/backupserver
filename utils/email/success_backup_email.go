@@ -1,12 +1,13 @@
 package email
 
 import (
-	"backupserver/config"
-	"backupserver/utils/date"
-	envHandler "backupserver/utils/env"
-	strings "backupserver/utils/strings"
 	"fmt"
 	"time"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	"github.com/paulmuenzner/golang-backupserver/utils/date"
+	envHandler "github.com/paulmuenzner/golang-backupserver/utils/env"
+	strings "github.com/paulmuenzner/golang-backupserver/utils/strings"
 )
 
 func (client *MailClient) SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup, databaseName string) error {

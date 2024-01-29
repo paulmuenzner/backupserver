@@ -1,10 +1,11 @@
 package email
 
 import (
-	"backupserver/config"
-	convert "backupserver/utils/convert"
-	envHandler "backupserver/utils/env"
 	"fmt"
+
+	"github.com/paulmuenzner/golang-backupserver/config"
+	convert "github.com/paulmuenzner/golang-backupserver/utils/convert"
+	envHandler "github.com/paulmuenzner/golang-backupserver/utils/env"
 )
 
 // Retrieve configuration data (eg. email provider, smtp port) from .env file for production settings only
