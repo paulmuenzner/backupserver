@@ -12,7 +12,7 @@
 [![GNU License][license-shield]][license-url]
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/paulmuenzner/backupserver?style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/paulmuenzner/backupserver?style=for-the-badge)
-
+<!-- [![Build Status](https://github.com/paulmuenzner/backupserver/workflows/ci/badge.svg)](https://github.com/paulmuenzner/backupserver/actions) -->
  <!-- [![paulmuenzner.com][website-shield]][website-url] -->
 [![paulmuenzner github][github-shield]][github-url] 
 [![Contributors][contributors-shield]][contributors-url]
