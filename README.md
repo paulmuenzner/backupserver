@@ -8,8 +8,8 @@
 [![Golang][golang-shield]][golang-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU License][license-shield]][license-url]
-[![paulmuenzner.com][website-shield]][website-url]
-[![paulmuenzner github][github-shield]][github-url]
+<!-- [![paulmuenzner.com][website-shield]][website-url]
+[![paulmuenzner github][github-shield]][github-url] -->
 [![Contributors][contributors-shield]][contributors-url]
 
 
