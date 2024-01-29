@@ -186,7 +186,7 @@ The following configurations can be modified in the config file located at => /c
 |:-----                             |:---------    |:---------  |:---------    
 | DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Log file names are assigned by day. All logs generated during one day are collected in a designated backup file. This parameter indicates after how many days log files will be deleted automatically. | int|   5   
 | NameDatabase                      |  Configure your database name you like to backup. It must be 100% identical to the MongoDB database name. | string| "MyProjectDB"      
-| FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | string|"mydbbackup"     
+| FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | string|"mydbbackup"
 | FileNameMetaData                  |File name for meta data file containing information on each created backup file | string| "meta_data.csv"         
 | IntervalBackup                    |Cron-like syntax format to define the recurring schedule of your automatic backup  |string|"@every 6h"
 | MaxFileSizeInBytes                | The maximum size of a backup file. Be aware of the max upload size permitted by AWS S3. Of the configured file size is not sufficient, a new backup file is created with the same name plus an added sequential numbering at the end           |int64| 2 * 1024 * 1024 * 1024
