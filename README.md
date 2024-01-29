@@ -6,13 +6,13 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <!-- [![Golang][golang-shield]][golang-url] -->
-[![Go Report Card](https://goreportcard.com/badge/github.com/paulmuenzner/backupserver?style=for-the-badge)](https://goreportcard.com/report/github.com/paulmuenzner/backupserver)
+[![Go Report Card](https://goreportcard.com/badge/github.com/paulmuenzner/backupserver)](https://goreportcard.com/report/github.com/paulmuenzner/backupserver)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/650472443a824243884952184a6732dd)](https://app.codacy.com/gh/paulmuenzner/backupserver/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Issues][issues-shield]][issues-url]
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/paulmuenzner/backupserver?style=for-the-badge)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/paulmuenzner/backupserver)
 [![GNU License][license-shield]][license-url]
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/paulmuenzner/backupserver?style=for-the-badge)
-![GitHub top language](https://img.shields.io/github/languages/top/paulmuenzner/backupserver?style=for-the-badge)
-<!-- [![Build Status](https://github.com/paulmuenzner/backupserver/workflows/ci/badge.svg)](https://github.com/paulmuenzner/backupserver/actions) -->
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/paulmuenzner/backupserver)
+![GitHub top language](https://img.shields.io/github/languages/top/paulmuenzner/backupserver)
  <!-- [![paulmuenzner.com][website-shield]][website-url] -->
 [![paulmuenzner github][github-shield]][github-url] 
 [![Contributors][contributors-shield]][contributors-url]
@@ -187,7 +187,7 @@ The following configurations can be modified in the config file located at => /c
 | DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Log file names are assigned by day. All logs generated during one day are collected in a designated backup file. This parameter indicates after how many days log files will be deleted automatically. | int|   5   
 | NameDatabase                      |  Configure your database name you like to backup. It must be 100% identical to the MongoDB database name. | string| "MyProjectDB"      
 | FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | string|"mydbbackup"
-| FileNameMetaData                  |File name for meta data file containing information on each created backup file | string| "meta_data.csv"         
+| FileNameMetaData                  |File name for meta data file containing information on each created backup file | string| "meta_data.csv"  
 | IntervalBackup                    |Cron-like syntax format to define the recurring schedule of your automatic backup  |string|"@every 6h"
 | MaxFileSizeInBytes                | The maximum size of a backup file. Be aware of the max upload size permitted by AWS S3. Of the configured file size is not sufficient, a new backup file is created with the same name plus an added sequential numbering at the end           |int64| 2 * 1024 * 1024 * 1024
 | SendEmailNotifications            |Decide whether you want to send email notifications or not. Emails are send in both cases error and successfully completed backup. |bool| false
@@ -289,20 +289,20 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[golang-shield]: https://img.shields.io/badge/golang-black.svg?style=for-the-badge&logo=go&logoColor=ffffff&colorB=00ADD8
+[golang-shield]: https://img.shields.io/badge/golang-black.svg?logo=go&logoColor=ffffff&colorB=00ADD8
 [golang-url]: https://go.dev/
-[aws-shield]: https://img.shields.io/badge/aws_s3-black.svg?style=for-the-badge&logo=amazons3&logoColor=ffffff&colorB=569A31
+[aws-shield]: https://img.shields.io/badge/aws_s3-black.svg?logo=amazons3&logoColor=ffffff&colorB=569A31
 [aws-url]: https://aws.github.io/aws-sdk-go-v2/docs/
-[mongodb-shield]: https://img.shields.io/badge/mongodb-black.svg?style=for-the-badge&logo=mongodb&logoColor=ffffff&colorB=47A248
+[mongodb-shield]: https://img.shields.io/badge/mongodb-black.svg?logo=mongodb&logoColor=ffffff&colorB=47A248
 [mongodb-url]: https://go.dev/
-[github-shield]: https://img.shields.io/badge/paulmuenzner-black.svg?style=for-the-badge&logo=github&logoColor=ffffff&colorB=000000
+[github-shield]: https://img.shields.io/badge/paulmuenzner-black.svg?logo=github&logoColor=ffffff&colorB=000000
 [github-url]: https://github.com/paulmuenzner
-[contributors-shield]: https://img.shields.io/github/contributors/paulmuenzner/backupserver.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/paulmuenzner/backupserver.svg
 [contributors-url]: https://github.com/paulmuenzner/backupserver/graphs/contributors
-[issues-shield]: https://img.shields.io/github/issues/paulmuenzner/backupserver.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/paulmuenzner/backupserver.svg
 [issues-url]: https://github.com/paulmuenzner/backupserver/issues
-[license-shield]: https://img.shields.io/github/license/paulmuenzner/backupserver.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/paulmuenzner/backupserver.svg
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue?style=for-the-badge
+[website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue
 [website-url]: https://paulmuenzner.com
 [product-screenshot]: images/screenshot.png
