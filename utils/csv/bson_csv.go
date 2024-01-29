@@ -6,8 +6,8 @@ import (
 	"os"
 	"sync"
 
-	bsonHandler "github.com/paulmuenzner/golang-backupserver/utils/bson"
-	"github.com/paulmuenzner/golang-backupserver/utils/files"
+	bsonHandler "github.com/paulmuenzner/backupserver/utils/bson"
+	"github.com/paulmuenzner/backupserver/utils/files"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

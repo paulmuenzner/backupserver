@@ -1,6 +1,6 @@
 package files
 
-import "github.com/paulmuenzner/golang-backupserver/config"
+import "github.com/paulmuenzner/backupserver/config"
 
 // Get entire file path depending on timestamp, file name and name of backup folder
 func GetFilePath(fileName string, timeStamp string) (filePath string) {

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"regexp"
 
-	config "github.com/paulmuenzner/golang-backupserver/config"
-	aws "github.com/paulmuenzner/golang-backupserver/utils/aws"
-	"github.com/paulmuenzner/golang-backupserver/utils/helper"
+	config "github.com/paulmuenzner/backupserver/config"
+	aws "github.com/paulmuenzner/backupserver/utils/aws"
+	"github.com/paulmuenzner/backupserver/utils/helper"
 )
 
 // This backup server can optionally be used as a ring memory. Due to this, it is needed to keep the newest backups of number n

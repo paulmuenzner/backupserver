@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/paulmuenzner/golang-backupserver/config"
+	"github.com/paulmuenzner/backupserver/config"
 
 	"github.com/sirupsen/logrus"
 )

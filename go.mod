@@ -1,4 +1,4 @@
-module github.com/paulmuenzner/golang-backupserver
+module github.com/paulmuenzner/backupserver
 
 go 1.21.4
 

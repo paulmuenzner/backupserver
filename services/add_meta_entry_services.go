@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/paulmuenzner/golang-backupserver/config"
-	files "github.com/paulmuenzner/golang-backupserver/utils/files"
+	"github.com/paulmuenzner/backupserver/config"
+	files "github.com/paulmuenzner/backupserver/utils/files"
 )
 
 // Add row of meta data for one csv file

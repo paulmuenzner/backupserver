@@ -1,14 +1,14 @@
 package backup
 
 import (
-	"github.com/paulmuenzner/golang-backupserver/config"
-	services "github.com/paulmuenzner/golang-backupserver/services"
-	"github.com/paulmuenzner/golang-backupserver/utils/aws"
-	date "github.com/paulmuenzner/golang-backupserver/utils/date"
-	email "github.com/paulmuenzner/golang-backupserver/utils/email"
-	files "github.com/paulmuenzner/golang-backupserver/utils/files"
-	logger "github.com/paulmuenzner/golang-backupserver/utils/logs"
-	mongoDB "github.com/paulmuenzner/golang-backupserver/utils/mongoDB"
+	"github.com/paulmuenzner/backupserver/config"
+	services "github.com/paulmuenzner/backupserver/services"
+	"github.com/paulmuenzner/backupserver/utils/aws"
+	date "github.com/paulmuenzner/backupserver/utils/date"
+	email "github.com/paulmuenzner/backupserver/utils/email"
+	files "github.com/paulmuenzner/backupserver/utils/files"
+	logger "github.com/paulmuenzner/backupserver/utils/logs"
+	mongoDB "github.com/paulmuenzner/backupserver/utils/mongoDB"
 
 	"os"
 )

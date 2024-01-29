@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	logger "github.com/paulmuenzner/golang-backupserver/utils/logs"
+	logger "github.com/paulmuenzner/backupserver/utils/logs"
 
 	"go.mongodb.org/mongo-driver/bson"
 )

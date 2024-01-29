@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/paulmuenzner/golang-backupserver/config"
+	"github.com/paulmuenzner/backupserver/config"
 )
 
 // /////////////////////////////////////////////////////////////////////////

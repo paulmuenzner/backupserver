@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/paulmuenzner/golang-backupserver/config"
-	files "github.com/paulmuenzner/golang-backupserver/utils/files"
+	"github.com/paulmuenzner/backupserver/config"
+	files "github.com/paulmuenzner/backupserver/utils/files"
 )
 
 // Create csv file for meta data of all created backup files

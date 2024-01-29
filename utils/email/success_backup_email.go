@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/paulmuenzner/golang-backupserver/config"
-	"github.com/paulmuenzner/golang-backupserver/utils/date"
-	envHandler "github.com/paulmuenzner/golang-backupserver/utils/env"
-	strings "github.com/paulmuenzner/golang-backupserver/utils/strings"
+	"github.com/paulmuenzner/backupserver/config"
+	"github.com/paulmuenzner/backupserver/utils/date"
+	envHandler "github.com/paulmuenzner/backupserver/utils/env"
+	strings "github.com/paulmuenzner/backupserver/utils/strings"
 )
 
 func (client *MailClient) SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup, databaseName string) error {

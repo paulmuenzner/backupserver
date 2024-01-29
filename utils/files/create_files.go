@@ -1,6 +1,6 @@
 package files
 
-// // Create empty file of any type without header using full file path, for example "github.com/paulmuenzner/golang-backupserver/folder/subfolder/example.csv"
+// // Create empty file of any type without header using full file path, for example "github.com/paulmuenzner/backupserver/folder/subfolder/example.csv"
 // func CreateEmptyFileAndClose(filePath string) (err error) {
 // 	file, err := os.Create(filePath)
 // 	if err != nil {
@@ -10,7 +10,7 @@ package files
 // 	return nil
 // }
 
-// // Create empty file of any type without header using full file path, for example "github.com/paulmuenzner/golang-backupserver/folder/subfolder/example.csv"
+// // Create empty file of any type without header using full file path, for example "github.com/paulmuenzner/backupserver/folder/subfolder/example.csv"
 // func CreateEmptyFileAndKeepOpen(filePath string) (file *os.File, err error) {
 // 	file, err = os.Create(filePath)
 // 	if err != nil {

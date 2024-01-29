@@ -3,9 +3,9 @@ package services
 import (
 	"fmt"
 
-	config "github.com/paulmuenzner/golang-backupserver/config"
-	aws "github.com/paulmuenzner/golang-backupserver/utils/aws"
-	csvHandler "github.com/paulmuenzner/golang-backupserver/utils/csv"
+	config "github.com/paulmuenzner/backupserver/config"
+	aws "github.com/paulmuenzner/backupserver/utils/aws"
+	csvHandler "github.com/paulmuenzner/backupserver/utils/csv"
 )
 
 func UploadBackupsAwsS3(folderPathBackup, metaFileName string, awsClientConfig *aws.AwsClientConfigData, bucketName string) error {

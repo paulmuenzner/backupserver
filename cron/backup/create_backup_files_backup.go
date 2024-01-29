@@ -6,12 +6,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/paulmuenzner/golang-backupserver/config"
-	services "github.com/paulmuenzner/golang-backupserver/services"
-	data "github.com/paulmuenzner/golang-backupserver/utils/csv"
-	date "github.com/paulmuenzner/golang-backupserver/utils/date"
-	files "github.com/paulmuenzner/golang-backupserver/utils/files"
-	mongoDB "github.com/paulmuenzner/golang-backupserver/utils/mongoDB"
+	"github.com/paulmuenzner/backupserver/config"
+	services "github.com/paulmuenzner/backupserver/services"
+	data "github.com/paulmuenzner/backupserver/utils/csv"
+	date "github.com/paulmuenzner/backupserver/utils/date"
+	files "github.com/paulmuenzner/backupserver/utils/files"
+	mongoDB "github.com/paulmuenzner/backupserver/utils/mongoDB"
 
 	"go.mongodb.org/mongo-driver/bson"
 )

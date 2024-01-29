@@ -3,8 +3,8 @@ package files
 import (
 	"fmt"
 
-	"github.com/paulmuenzner/golang-backupserver/config"
-	bsonHandler "github.com/paulmuenzner/golang-backupserver/utils/bson"
+	"github.com/paulmuenzner/backupserver/config"
+	bsonHandler "github.com/paulmuenzner/backupserver/utils/bson"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
