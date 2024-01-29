@@ -5,11 +5,12 @@
 <!--
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Golang][golang-shield]][golang-url]
+<!-- [![Golang][golang-shield]][golang-url] -->
+[![Go Report Card](https://goreportcard.com/badge/github.com/paulmuenzner/backupserver?style=for-the-badge)](https://goreportcard.com/report/github.com/paulmuenzner/backupserver)
 [![Issues][issues-shield]][issues-url]
 [![GNU License][license-shield]][license-url]
-<!-- [![paulmuenzner.com][website-shield]][website-url]
-[![paulmuenzner github][github-shield]][github-url] -->
+ <!-- [![paulmuenzner.com][website-shield]][website-url] -->
+[![paulmuenzner github][github-shield]][github-url] 
 [![Contributors][contributors-shield]][contributors-url]
 
 
@@ -17,7 +18,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/paulmuenzner/golang-backup-server">
+  <a href="https://github.com/paulmuenzner/backupserver">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -108,7 +109,7 @@ Prior to launching the program, clone the repo, install go dependencies and ensu
 
 - Clone the repo
    ```sh
-   git clone https://github.com/paulmuenzner/golang-backup-server.git
+   git clone https://github.com/paulmuenzner/backupserver.git
    ```
 - Install go dependencies by running
    ```sh
@@ -227,7 +228,7 @@ Run program by: `go run main.go` or use live-reloader such as [air](https://gith
 - [ ] Add option to upload backups to MS Azure
 
 
-See the [open issues](https://github.com/paulmuenzner/golang-backup-server/issues) to report bugs or request fatures.
+See the [open issues](https://github.com/paulmuenzner/backupserver/issues) to report bugs or request fatures.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -259,7 +260,7 @@ Distributed under the GNU General Public License v2.0. See [LICENSE](LICENSE.txt
 
 Paul Münzner: [https://paulmuenzner.com](https://paulmuenzner.com) 
 
-Project Link: [https://github.com/paulmuenzner/golang-backup-server](https://github.com/paulmuenzner/golang-backup-server)
+Project Link: [https://github.com/paulmuenzner/backupserver](https://github.com/paulmuenzner/backupserver)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -292,13 +293,13 @@ Use this space to list resources you find helpful and would like to give credit 
 [mongodb-url]: https://go.dev/
 [github-shield]: https://img.shields.io/badge/paulmuenzner-black.svg?style=for-the-badge&logo=github&logoColor=ffffff&colorB=000000
 [github-url]: https://github.com/paulmuenzner
-[contributors-shield]: https://img.shields.io/github/contributors/paulmuenzner/golang-backup-server.svg?style=for-the-badge
-[contributors-url]: https://github.com/paulmuenzner/golang-backup-server/graphs/contributors
+[contributors-shield]: https://img.shields.io/github/contributors/paulmuenzner/backupserver.svg?style=for-the-badge
+[contributors-url]: https://github.com/paulmuenzner/backupserver/graphs/contributors
 [forks-shield]: https://img.shields.io/badge/FORKS-blue?style=for-the-badge
-[forks-url]: https://github.com/paulmuenzner/golang-backup-server/network/members
-[issues-shield]: https://img.shields.io/github/issues/paulmuenzner/golang-backup-server.svg?style=for-the-badge
-[issues-url]: https://github.com/paulmuenzner/golang-backup-server/issues
-[license-shield]: https://img.shields.io/github/license/paulmuenzner/golang-backup-server.svg?style=for-the-badge
+[forks-url]: https://github.com/paulmuenzner/backupserver/network/members
+[issues-shield]: https://img.shields.io/github/issues/paulmuenzner/backupserver.svg?style=for-the-badge
+[issues-url]: https://github.com/paulmuenzner/backupserver/issues
+[license-shield]: https://img.shields.io/github/license/paulmuenzner/backupserver.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue?style=for-the-badge
 [website-url]: https://paulmuenzner.com

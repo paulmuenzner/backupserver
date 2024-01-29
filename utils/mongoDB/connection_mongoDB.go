@@ -31,13 +31,13 @@ func ConnectToMongoDB(mongodbURI string) (*DatabaseClient, error) {
 
 	client, err := mongo.Connect(context.Background(), clientOptions)
 	if err != nil {
-		return nil, fmt.Errorf("Client setup MongoDB failed in 'ConnectToMongoDB()' applying 'mongo.Connect()'. Error: %v", err)
+		return nil, fmt.Errorf("Client setup MongoDB failed in 'ConnectToMongoDB()' utilizing 'mongo.Connect()'. Error: %v", err)
 	}
 
 	// Check the connection
 	err = client.Ping(context.TODO(), nil)
 	if err != nil {
-		return nil, fmt.Errorf("Error in 'ConnectToMongoDB()' applying 'client.Ping()'. Cannot connect to MongoDB. Error: %v", err)
+		return nil, fmt.Errorf("Error in 'ConnectToMongoDB()' utilizing 'client.Ping()'. Cannot connect to MongoDB. Error: %v", err)
 	}
 
 	return &DatabaseClient{MongoDB: client}, nil

@@ -18,7 +18,7 @@ func ManageBackupsLocally() error {
 		/////////////////////
 		err := files.DeleteLocalFolder(localBackupFolder)
 		if err != nil {
-			return fmt.Errorf("Error in 'ManageBackupsLocally' applying 'DeleteLocalFolder()'. Error: %v", err)
+			return fmt.Errorf("Error in 'ManageBackupsLocally' utilizing 'DeleteLocalFolder()'. Error: %v", err)
 		}
 	} else {
 		///////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ func ManageBackupsLocally() error {
 			// Validate if more backups on local storage than permitted (accoding to config.MaxBackupsLocally)
 			listLocalBackupFolders, err := files.ListLocalFolderNames(localBackupFolder)
 			if err != nil {
-				return fmt.Errorf("Error in 'ManageBackupsLocally' applying 'ListLocalFolderNames()'. Error: %v", err)
+				return fmt.Errorf("Error in 'ManageBackupsLocally' utilizing 'ListLocalFolderNames()'. Error: %v", err)
 			}
 			maxBackupsLocally := config.MaxBackupsLocally
 			moreBackupsThanPermitted := len(listLocalBackupFolders) > maxBackupsLocally

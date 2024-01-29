@@ -57,7 +57,7 @@ func UploadBackupsAwsS3(folderPathBackup, metaFileName string, awsClientConfig *
 	if isCircularBufferActivatedS3 == true {
 		err := DeleteOldBackupsS3(bucketName, awsClientConfig)
 		if err != nil {
-			return fmt.Errorf("Error in 'Backup' applying 'DeleteOldBackups()'. Error: %v", err)
+			return fmt.Errorf("Error in 'Backup' utilizing 'DeleteOldBackups()'. Error: %v", err)
 
 		}
 	}

@@ -55,16 +55,21 @@ func Backup(mongoDbClientConfig *mongoDB.DatabaseClient, awsClientConfig *aws.Aw
 	////////////////////////
 	err = ManageStorages(folderPathBackup, fileNameMeta, awsClientConfig, bucketName)
 	if err != nil {
-		logger.GetLogger().Error("Error in 'Backup()' applying 'ManageStorages()'. Error: ", err)
+		logger.GetLogger().Error("Error in 'Backup()' utilizing 'ManageStorages()'. Error: ", err)
 		return
 	}
 
 	if config.SendEmailNotifications == true {
 		// Setup Email client dependency
 		emailMethods, err := email.GetEmailMethods(emailClientConfig)
+		if err != nil {
+			logger.GetLogger().Errorf("Error in 'Backup()' utilizing 'GetEmailMethods()' for 'emailMethods'. Email client config: %+v. Error: %v", emailClientConfig, err)
+			return
+		}
+
 		err = emailMethods.MethodInterface.SendEmailBackupSuccess(timeStamp, bucketName, folderPathBackup, databaseName)
 		if err != nil {
-			logger.GetLogger().Error("Error in 'Backup()' applying 'SendEmailBackupSuccess()'. Error: ", err)
+			logger.GetLogger().Error("Error in 'Backup()' utilizing 'SendEmailBackupSuccess()'. Error: ", err)
 			return
 		}
 	}

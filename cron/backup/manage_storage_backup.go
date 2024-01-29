@@ -18,7 +18,7 @@ func ManageStorages(folderPathBackup string, metaFileName string, awsClientConfi
 	// Manage Circular Buffer
 	err := services.UploadBackupsAwsS3(folderPathBackup, metaFileName, awsClientConfig, bucketName)
 	if err != nil {
-		return fmt.Errorf("Error in 'Backup' applying 'UploadBackupsAwsS3()'. Error: %v", err)
+		return fmt.Errorf("Error in 'Backup' utilizing 'UploadBackupsAwsS3()'. Error: %v", err)
 
 	}
 
@@ -28,7 +28,7 @@ func ManageStorages(folderPathBackup string, metaFileName string, awsClientConfi
 	// Manage local backups depending on configuration in '/config/base_config.go' => Delete all, keep all or circular buffer
 	err = services.ManageBackupsLocally()
 	if err != nil {
-		return fmt.Errorf("Error in 'Backup' applying 'ManageBackupsLocally()'. Error: %v", err)
+		return fmt.Errorf("Error in 'Backup' utilizing 'ManageBackupsLocally()'. Error: %v", err)
 	}
 
 	return nil

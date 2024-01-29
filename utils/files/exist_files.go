@@ -16,17 +16,6 @@ func LocalFolderExists(folderPath string) (bool, error) {
 	return false, err
 }
 
-// Usage example:
-// filePath := "/path/to/"
-// exists, err := LocalFolderExists(filePath)
-// if err != nil {
-//     // Handle error
-// } else if exists {
-//     fmt.Println("Folder exists!")
-// } else {
-//     fmt.Println("Folder does not exist.")
-// }
-
 /////////////////////////////////////////////////////////////
 // Check if local file exists
 ///////////
@@ -40,14 +29,3 @@ func LocalFileExists(path string) (bool, error) {
 	}
 	return false, err // Other error
 }
-
-// Usage example:
-// filePath := "/path/to/file.txt"
-// exists, err := LocalPathExists(filePath)
-// if err != nil {
-//     // Handle error
-// } else if exists {
-//     fmt.Println("File exists!")
-// } else {
-//     fmt.Println("File does not exist.")
-// }

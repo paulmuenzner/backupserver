@@ -6,7 +6,7 @@ import (
 )
 
 // Determine file name depending on backup file size.
-// Create new backup file name if cureent file size exceeds maximum size by using base backup file name and applying subsequent numbering
+// Create new backup file name if cureent file size exceeds maximum size by using base backup file name and utilizing subsequent numbering
 func DetermineBackupFileName(fileName string, fileNumber int, collectionName string, timeStamp string, fileSizeExceeding bool) (newFileName string, newFileNumber int, oldNameBackupFile string, err error) {
 	filePath := GetFilePath(fileName, timeStamp)
 

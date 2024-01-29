@@ -20,17 +20,22 @@ func (client *MailClient) SendEmailBackupSuccess(timeStamp time.Time, bucketName
 	bodyComponents := []string{"Backup of your database successful. <br/> Date: ", timeStampString, "<br/> Database name: ", databaseName, "<br/> Bucket name: ", bucketName, "<br/> Folder path S3: ", folderPathBackup}
 	body := strings.ConcatenateStrings(bodyComponents...)
 
-	senderEmail, err := envHandler.GetEnvValue(config.EmailAddressSenderEnv, "")
-	recipientEmail, err := envHandler.GetEnvValue(config.EmailAddressReceiverEnv, "")
+	senderEmailAddress, err := envHandler.GetEnvValue(config.EmailAddressSenderEnv, "") // Feel free to use default value via base_config
 	// Log as error if no defaultValue provided in GetEnvValue()
 	if err != nil {
-		return fmt.Errorf("Error in 'SendEmailBackupSuccess' applying 'GetEnvValue()'. Cannot retrieve env value. Error: %v", err)
+		return fmt.Errorf("Error in 'SendEmailBackupSuccess()' utilizing 'GetEnvValue()' for 'senderEmailAddress'. Cannot retrieve env value. Error: %v", err)
+	}
+
+	recipientEmailAddress, err := envHandler.GetEnvValue(config.EmailAddressReceiverEnv, "") // Feel free to use default value via base_config
+	// Log as error if no defaultValue provided in GetEnvValue()
+	if err != nil {
+		return fmt.Errorf("Error in 'SendEmailBackupSuccess()' utilizing 'GetEnvValue()' for 'recipientEmailAddress'. Cannot retrieve env value. Error: %v", err)
 	}
 
 	// Send
-	err = client.SendEmail(senderEmail, recipientEmail, subject, body)
+	err = client.SendEmail(senderEmailAddress, recipientEmailAddress, subject, body)
 	if err != nil {
-		return fmt.Errorf("Error in 'SendEmailBackupSuccess' applying 'SendEmail()'. Client data: %+v. Error: %v", client, err)
+		return fmt.Errorf("Error in 'SendEmailBackupSuccess()' utilizing 'SendEmail()'. Client data: %+v. Error: %v", client, err)
 	}
 	return nil
 }
