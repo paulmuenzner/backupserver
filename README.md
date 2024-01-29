@@ -67,16 +67,16 @@ This Golang-based server is designed to automate recurring backups of MongoDB da
 
 
 ### Features
-- **Recurring Backups**: Define automatic, scheduled backups using cron jobs.
-- **Circular Buffer**: Implement a circular buffer to manage and optimize backup storage.
-- **CSV Format**: Each MongoDB collection is saved as a CSV file, offering simplicity and human readability. 
-- **Configuration Flexibility**: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups thanks to a flexible configuration system.
-- **Limit File Size**: Define max and limit size of csv files. Large collections are splitted into multiple numbered files.
-- **Dependency Injection (DI) setup**: This Golang webserver boasts a robust architecture designed for flexibility, reduced coupling and testibiliy through a dedicated Dependency Injection (DI) setup. The core functionalities of database communications, and AWS operations and sending email notifications are seamlessly integrated, providing a cohesive and modular solution.
-- **AWS S3 Integration**: Backups are securely uploaded to AWS S3 for reliable and scalable storage. Multipart uploads are applied automatically for large csv files improving throughput by uploading a number of parts in parallel.
-- **S3 Pagination**: Pagination implemented to handle large object lists with AWS S3.
-- **Local Backups**: Store backups optionally on your local machine; even with circular buffer functionality.
-- **Robust Error Handling Mechanism**: Any encountered errors are diligently logged to the designated log folder and simultaneously dispatched via email notifications.
+-   **Recurring Backups**: Define automatic, scheduled backups using cron jobs.
+-   **Circular Buffer**: Implement a circular buffer to manage and optimize backup storage.
+-   **CSV Format**: Each MongoDB collection is saved as a CSV file, offering simplicity and human readability. 
+-   **Configuration Flexibility**: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups thanks to a flexible configuration system.
+-   **Limit File Size**: Define max and limit size of csv files. Large collections are splitted into multiple numbered files.
+-   **Dependency Injection (DI) setup**: This Golang webserver boasts a robust architecture designed for flexibility, reduced coupling and testibiliy through a dedicated Dependency Injection (DI) setup. The core functionalities of database communications, and AWS operations and sending email notifications are seamlessly integrated, providing a cohesive and modular solution.
+-   **AWS S3 Integration**: Backups are securely uploaded to AWS S3 for reliable and scalable storage. Multipart uploads are applied automatically for large csv files improving throughput by uploading a number of parts in parallel.
+-   **S3 Pagination**: Pagination implemented to handle large object lists with AWS S3.
+-   **Local Backups**: Store backups optionally on your local machine; even with circular buffer functionality.
+-   **Robust Error Handling Mechanism**: Any encountered errors are diligently logged to the designated log folder and simultaneously dispatched via email notifications.
 
 
 
@@ -90,9 +90,9 @@ Choosing to make backups in CSV format offers simplicity, portability, and human
 
 This project is basically built with and for:
 
-* [![Aws][aws-shield]][aws-url]
-* [![Golang][golang-shield]][golang-url]
-* [![MongoDB][mongodb-shield]][mongodb-url]
+*   [![Aws][aws-shield]][aws-url]
+*   [![Golang][golang-shield]][golang-url]
+*   [![MongoDB][mongodb-shield]][mongodb-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -105,8 +105,8 @@ Prior to launching the program, clone the repo, install go dependencies and ensu
 
 
 ### Prerequisites 
-- Make sure MongoDB is installed and available.
-- Make sure a properly configured [AWS S3 Bucket](https://aws.amazon.com/s3/?nc1=h_ls) is ready.
+-   Make sure MongoDB is installed and available.
+-   Make sure a properly configured [AWS S3 Bucket](https://aws.amazon.com/s3/?nc1=h_ls) is ready.
 
 
 ### Installation
@@ -129,11 +129,11 @@ AWS S3 & MongoDB Configuration:
 
 If your application involves interactions with AWS S3, you must provide the following key-value pairs in the .env file:
 
-- BUCKET_NAME: The name of your AWS S3 bucket.
-- AWS_REGION: The AWS region where your S3 bucket is located.
-- AWS_ACCESS_KEY_ID: Your AWS access key ID.
-- AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
-- MONGO_URI: MongoDB URI (Uniform Resource Identifier) 
+-   BUCKET_NAME: The name of your AWS S3 bucket.
+-   AWS_REGION: The AWS region where your S3 bucket is located.
+-   AWS_ACCESS_KEY_ID: Your AWS access key ID.
+-   AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
+-   MONGO_URI: MongoDB URI (Uniform Resource Identifier) 
 
 #### Optional Environment Variables
 
@@ -141,12 +141,12 @@ Email Notification Configuration:
 
 If you intend to use email notifications (configured with SendEmailNotifications in the config file), include the following additional variables in your .env file:
 
-- EMAIL_PROVIDER_PASSWORD: Password for the email provider.
-- EMAIL_PROVIDER_USERNAME: Username for the email provider.
-- EMAIL_PROVIDER_SMTP_PORT: SMTP port for the email provider.
-- EMAIL_PROVIDER_HOST: Hostname of the email provider.
-- EMAIL_ADDRESS_SENDER_BACKUP: Sender email address for backup notifications.
-- EMAIL_ADDRESS_RECEIVER_BACKUP: Receiver email address for backup notifications.
+-   EMAIL_PROVIDER_PASSWORD: Password for the email provider.
+-   EMAIL_PROVIDER_USERNAME: Username for the email provider.
+-   EMAIL_PROVIDER_SMTP_PORT: SMTP port for the email provider.
+-   EMAIL_PROVIDER_HOST: Hostname of the email provider.
+-   EMAIL_ADDRESS_SENDER_BACKUP: Sender email address for backup notifications.
+-   EMAIL_ADDRESS_RECEIVER_BACKUP: Receiver email address for backup notifications.
 
 #### Important Note
 
@@ -222,14 +222,14 @@ Run program by: `go run main.go` or use live-reloader such as [air](https://gith
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add optional circular buffer feature for S3 
-- [x] Add optional circular buffer feature for local storage
-- [x] Add optional email notification feature
-- [ ] Add gzip compression feature for entire backup files
-- [ ] Extend testing
-- [ ] Add option to also backup SQL databases besides MongoDB
-- [ ] Add option to backup multiple databases
-- [ ] Add option to upload backups to MS Azure
+-   [x] Add optional circular buffer feature for S3 
+-   [x] Add optional circular buffer feature for local storage
+-   [x] Add optional email notification feature
+-   [ ] Add gzip compression feature for entire backup files
+-   [ ] Extend testing
+-   [ ] Add option to also backup SQL databases besides MongoDB
+-   [ ] Add option to backup multiple databases
+-   [ ] Add option to upload backups to MS Azure
 
 
 See the [open issues](https://github.com/paulmuenzner/backupserver/issues) to report bugs or request fatures.
@@ -275,12 +275,12 @@ Project Link: [https://github.com/paulmuenzner/backupserver](https://github.com/
 
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-* [AWS S3 Upload Size](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
-* [MongoDB Go Docs](https://www.mongodb.com/docs/drivers/go/current/quick-start/)
-* [AWS SDK for Go V2 Docs][aws-url]
-* [Gomail Docs](https://pkg.go.dev/gopkg.in/gomail.v2?utm_source=godoc)
-* [Testing](https://pkg.go.dev/testing) & [assert](https://pkg.go.dev/github.com/stretchr/testify/assert)
-* [Cron](https://pkg.go.dev/github.com/robfig/cron/v3)
+*   [AWS S3 Upload Size](https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html)
+*   [MongoDB Go Docs](https://www.mongodb.com/docs/drivers/go/current/quick-start/)
+*   [AWS SDK for Go V2 Docs][aws-url]
+*   [Gomail Docs](https://pkg.go.dev/gopkg.in/gomail.v2?utm_source=godoc)
+*   [Testing](https://pkg.go.dev/testing) & [assert](https://pkg.go.dev/github.com/stretchr/testify/assert)
+*   [Cron](https://pkg.go.dev/github.com/robfig/cron/v3)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
