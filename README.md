@@ -23,7 +23,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/paulmuenzner/backupserver">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo-backupserver.png" alt="Logo" width="235" height="154">
   </a>
 
   <h3 align="center">Golang Backup Server</h3>
