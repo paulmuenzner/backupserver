@@ -222,14 +222,14 @@ Run program by: `go run main.go` or use live-reloader such as [air](https://gith
 <!-- ROADMAP -->
 ## Roadmap
 
--   [+] Add optional circular buffer feature for S3 
--   [+] Add optional circular buffer feature for local storage
--   [+] Add optional email notification feature
--   [-] Add gzip compression feature for entire backup files
--   [-] Extend testing
--   [-] Add option to also backup SQL databases besides MongoDB
--   [-] Add option to backup multiple databases
--   [-] Add option to upload backups to MS Azure
+-   [x] Add optional circular buffer feature for S3 
+-   [x] Add optional circular buffer feature for local storage
+-   [x] Add optional email notification feature
+-   [ ] Add gzip compression feature for entire backup files
+-   [ ] Extend testing
+-   [ ] Add option to also backup SQL databases besides MongoDB
+-   [ ] Add option to backup multiple databases
+-   [ ] Add option to upload backups to MS Azure
 
 
 See the [open issues](https://github.com/paulmuenzner/backupserver/issues) to report bugs or request fatures.
