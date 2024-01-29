@@ -1,4 +1,4 @@
-Thank you for contributing to Golang Backup Server! Here are a few guidelines:
+Thank you for contributing to Golang Backup Server! Here are a few guidelines:  
 
 ## Bugs
 
