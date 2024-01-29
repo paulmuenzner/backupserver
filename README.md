@@ -303,6 +303,6 @@ Use this space to list resources you find helpful and would like to give credit 
 [issues-url]: https://github.com/paulmuenzner/backupserver/issues
 [license-shield]: https://img.shields.io/github/license/paulmuenzner/backupserver.svg
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue
-[website-url]: https://paulmuenzner.com
+<!-- [website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue
+[website-url]: https://paulmuenzner.com -->
 
