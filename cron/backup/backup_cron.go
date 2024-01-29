@@ -63,7 +63,7 @@ func Backup(mongoDbClientConfig *mongoDB.DatabaseClient, awsClientConfig *aws.Aw
 		// Setup Email client dependency
 		emailMethods, err := email.GetEmailMethods(emailClientConfig)
 		if err != nil {
-			logger.GetLogger().Errorf("Error in 'Backup()' utilizing 'GetEmailMethods()' for 'emailMethods'. Email client config: %+v. Error: %v", emailClientConfig, err)
+			logger.GetLogger().Errorf("Error in 'Backup()' utilizing 'GetEmailMethods()' for 'emailMethods'. Error: %v", err)
 			return
 		}
 

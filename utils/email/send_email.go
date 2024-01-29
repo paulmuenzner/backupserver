@@ -7,7 +7,11 @@ func (client *MailClient) SendEmail(senderEmail, recipientEmail, subject, body s
 	m.SetHeader("From", senderEmail)
 	m.SetHeader("To", recipientEmail)
 	m.SetHeader("Subject", subject)
-	m.SetBody("text/plain", body)
+
+	// Set the body as plain text
+	// m.SetBody("text/plain", body)
+	// Set the body as HTML
+	m.SetBody("text/html", body)
 
 	// Send
 	if err := client.MyEmailClient.DialAndSend(m); err != nil {
