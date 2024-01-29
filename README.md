@@ -8,7 +8,11 @@
 <!-- [![Golang][golang-shield]][golang-url] -->
 [![Go Report Card](https://goreportcard.com/badge/github.com/paulmuenzner/backupserver?style=for-the-badge)](https://goreportcard.com/report/github.com/paulmuenzner/backupserver)
 [![Issues][issues-shield]][issues-url]
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/paulmuenzner/backupserver?style=for-the-badge)
 [![GNU License][license-shield]][license-url]
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/paulmuenzner/backupserver?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/paulmuenzner/backupserver?style=for-the-badge)
+
  <!-- [![paulmuenzner.com][website-shield]][website-url] -->
 [![paulmuenzner github][github-shield]][github-url] 
 [![Contributors][contributors-shield]][contributors-url]

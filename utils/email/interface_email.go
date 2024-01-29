@@ -38,7 +38,7 @@ func GetEmailMethods(emailClientConfig *EmailClientConfigData) (emailClientMetho
 	// Setup email client dependency
 	client, err := NewEmailClient(emailClientConfig)
 	if err != nil {
-		return nil, fmt.Errorf("Cannot create email client in 'EmailProductionClient()' with 'NewEmailClient()'. Email client config: %+v. Error: %v", emailClientConfig, err)
+		return nil, fmt.Errorf("Cannot create email client in 'EmailProductionClient()' with 'NewEmailClient()'. Error: %v", err)
 	}
 	emailClientMethods = NewEmailMetodInterface(client)
 
