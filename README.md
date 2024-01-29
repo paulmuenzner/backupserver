@@ -6,6 +6,7 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <!-- [![Golang][golang-shield]][golang-url] -->
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/610035dbebbc4bc7b3d00e23a061b6c7)](https://app.codacy.com/gh/paulmuenzner/backupserver?utm_source=github.com&utm_medium=referral&utm_content=paulmuenzner/backupserver&utm_campaign=Badge_Grade)
 [![Go Report Card](https://goreportcard.com/badge/github.com/paulmuenzner/backupserver?style=for-the-badge)](https://goreportcard.com/report/github.com/paulmuenzner/backupserver)
 [![Issues][issues-shield]][issues-url]
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/paulmuenzner/backupserver?style=for-the-badge)
