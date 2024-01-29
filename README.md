@@ -183,9 +183,9 @@ EMAIL_ADDRESS_RECEIVER_BACKUP=your-receiver-email-address
 The following configurations can be modified in the config file located at => /config/base_config.go
 
 | Key                               |  Description |  Type |  Example 
-|:-----                             |:---------    |:---------  |:---------    
-| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Log file names are assigned by day. All logs generated during one day are collected in a designated backup file. This parameter indicates after how many days log files will be deleted automatically. | int|   5   
-| NameDatabase                      |  Configure your database name you like to backup. It must be 100% identical to the MongoDB database name. | string| "MyProjectDB"      
+|:-----                             |:---------    |:---------  |:---------  
+| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Log file names are assigned by day. All logs generated during one day are collected in a designated backup file. This parameter indicates after how many days log files will be deleted automatically. | int|   5  
+| NameDatabase                      |  Configure your database name you like to backup. It must be 100% identical to the MongoDB database name. | string| "MyProjectDB"  
 | FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | string|"mydbbackup"
 | FileNameMetaData                  |File name for meta data file containing information on each created backup file | string| "meta_data.csv"  
 | IntervalBackup                    |Cron-like syntax format to define the recurring schedule of your automatic backup  |string|"@every 6h"
@@ -205,7 +205,7 @@ The following configurations can be modified in the config file located at => /c
 | S3BucketEnv                   |Name of .env key to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be ready in your AWS account.|string| "BUCKET_NAME"
 | S3RegionEnv                   |Name of .env key to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| string|"AWS_REGION"
 | S3AccessKeyEnv                |Name of .env key to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| string|"AWS_ACCESS_KEY_ID"
-| S3SecretKeyEnv                |Name of .env key to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| string|"AWS_SECRET_ACCESS_KEY"    
+| S3SecretKeyEnv                |Name of .env key to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| string|"AWS_SECRET_ACCESS_KEY"  
 | MongoURIEnv                |Name of .env key to define a MongoDB URI (Uniform Resource Identifier). The value behind this .env key is placed in your .env file. |string| "MONGO_URI"
 
 
@@ -305,4 +305,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [website-shield]: https://img.shields.io/badge/www-paulmuenzner.com-blue
 [website-url]: https://paulmuenzner.com
-[product-screenshot]: images/screenshot.png
+
