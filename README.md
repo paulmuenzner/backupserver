@@ -111,11 +111,11 @@ Prior to launching the program, clone the repo, install go dependencies and ensu
 
 ### Installation
 
-- Clone the repo
+-   Clone the repo
    ```sh
    git clone https://github.com/paulmuenzner/backupserver.git
    ```
-- Install go dependencies by running
+-   Install go dependencies by running
    ```sh
    go get
    ```
@@ -299,8 +299,6 @@ Use this space to list resources you find helpful and would like to give credit 
 [github-url]: https://github.com/paulmuenzner
 [contributors-shield]: https://img.shields.io/github/contributors/paulmuenzner/backupserver.svg?style=for-the-badge
 [contributors-url]: https://github.com/paulmuenzner/backupserver/graphs/contributors
-[forks-shield]: https://img.shields.io/badge/FORKS-blue?style=for-the-badge
-[forks-url]: https://github.com/paulmuenzner/backupserver/network/members
 [issues-shield]: https://img.shields.io/github/issues/paulmuenzner/backupserver.svg?style=for-the-badge
 [issues-url]: https://github.com/paulmuenzner/backupserver/issues
 [license-shield]: https://img.shields.io/github/license/paulmuenzner/backupserver.svg?style=for-the-badge
