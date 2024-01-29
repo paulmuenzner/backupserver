@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func (client *DatabaseClient) FindDocumentsInMongo(databaseName string, collection string, interval int, skip int, result interface{}) error {
+func (client *MongoDBClient) FindDocumentsInMongo(databaseName string, collection string, interval int, skip int, result interface{}) error {
 
 	// Create a session for the database
 	session, err := client.MongoDB.StartSession()

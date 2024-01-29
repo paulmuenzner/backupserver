@@ -46,9 +46,16 @@ func main() {
 	///////////////////////////////////////////////
 
 	// Get Uniform Resource Identifier
-	mongodbURI, err := envHandler.GetEnvValue("MONGO_URI", "mongodb://localhost:27017")
+	mongodbURI, err := mongoDB.MongoDBClientConfig()
 	if err != nil {
 		logger.GetLogger().Warnf("Cannot retrieve .env value for Mongo URI in 'main.go'. Default value used. Error: %v", err)
+	}
+
+	// Get database name
+	databaseName, err := envHandler.GetEnvValue(config.MongoDatabaseNameEnv, "")
+	if err != nil {
+		logger.GetLogger().Errorf("Cannot retrieve .env value for database name (config.MongoDatabaseNameEnv) in 'main()' utilizing 'GetEnvValue()'. Env key: %s. No default value has been employed. Error: %v", config.MongoDatabaseNameEnv, err)
+		return
 	}
 
 	// Connect to database
@@ -94,7 +101,7 @@ func main() {
 
 	// Start cron job
 	_, errCron1 := cron.AddFunc(config.IntervalBackup, func() {
-		cronJobs.Backup(client, s3ClientConfig, emailClientConfig, bucketName)
+		cronJobs.Backup(client, s3ClientConfig, emailClientConfig, bucketName, databaseName)
 	}) // Use the imported function
 	if errCron1 != nil {
 		logger.GetLogger().Error("Error adding cron job 'Backup': ", errCron1)

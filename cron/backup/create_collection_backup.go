@@ -6,7 +6,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/paulmuenzner/backupserver/config"
 	services "github.com/paulmuenzner/backupserver/services"
 	data "github.com/paulmuenzner/backupserver/utils/csv"
 	date "github.com/paulmuenzner/backupserver/utils/date"
@@ -16,8 +15,9 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func CreateBackupFiles(databaseClientSetup *mongoDB.MethodConfig, databaseName string, timeStamp time.Time, folderPathBackup, fileNameMeta string) error {
+func CreateBackupFiles(databaseClientSetup *mongoDB.MongoDBMethodInterface, databaseName string, timeStamp time.Time, folderPathBackup, fileNameMeta string) error {
 
+	// Get current time stamp
 	timeStampString := date.TimeStampSlug(timeStamp)
 
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ func CreateBackupFiles(databaseClientSetup *mongoDB.MethodConfig, databaseName s
 			if backupFileSizeExceeded {
 				// Add entry to meta file
 				timeFinalizedBackupFile := date.TimeStamp()
-				err = services.AddMetaEntry(timeStamp, timeFinalizedBackupFile, folderPathBackup, fileNameMeta, oldNameBackupFile, collectionName, config.NameDatabase)
+				err = services.AddMetaEntry(timeStamp, timeFinalizedBackupFile, folderPathBackup, fileNameMeta, oldNameBackupFile, collectionName, databaseName)
 				if err != nil {
 					return fmt.Errorf("Error in 'CreateBackupFiles()' adding meta entry to csv for collection: '%s'. Meta file name: '%s'. Backup file name:  '%s'. Error: %v", collectionName, fileNameMeta, fileNameBackupFile, err)
 				}
@@ -109,7 +109,7 @@ func CreateBackupFiles(databaseClientSetup *mongoDB.MethodConfig, databaseName s
 			// If last iteration step for this collection add information of current and finalized backup file to meta data listing
 			if i == iterations-1 {
 				timeFinalizedBackupFile := date.TimeStamp()
-				err = services.AddMetaEntry(timeStamp, timeFinalizedBackupFile, folderPathBackup, fileNameMeta, fileNameBackupFile, collectionName, config.NameDatabase)
+				err = services.AddMetaEntry(timeStamp, timeFinalizedBackupFile, folderPathBackup, fileNameMeta, fileNameBackupFile, collectionName, databaseName)
 				if err != nil {
 					return fmt.Errorf("Error in 'CreateBackupFiles()' adding meta entry to csv for collection '%s'. File name of meta: '%s' with backup file name: '%s'. Error: %v", collectionName, fileNameMeta, fileNameBackupFile, err)
 				}

@@ -6,8 +6,8 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-func NewEmailClient(configData *EmailClientConfigData) (client *MailClient, err error) {
-	dialer := gomail.NewDialer(configData.Host, configData.SmtpPort, configData.SmtpUsername, configData.SmtpPassword)
+func NewEmailClient(emailClientConfig *EmailClientConfigData) (client *MailClient, err error) {
+	dialer := gomail.NewDialer(emailClientConfig.Host, emailClientConfig.SmtpPort, emailClientConfig.SmtpUsername, emailClientConfig.SmtpPassword)
 	if dialer == nil {
 		return nil, fmt.Errorf("Failed to create dialer in 'NewEmailClient()' using email client config data.")
 	}

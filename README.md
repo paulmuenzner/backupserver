@@ -133,7 +133,11 @@ If your application involves interactions with AWS S3, you must provide the foll
 -   AWS_REGION: The AWS region where your S3 bucket is located.
 -   AWS_ACCESS_KEY_ID: Your AWS access key ID.
 -   AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
--   MONGO_URI: MongoDB URI (Uniform Resource Identifier) 
+-   MONGODB_SCHEME: MongoDB Scheme (likely mongodb) 
+-   MONGODB_HOST: MongoDB Host (localhost if self-hosted running locally. Read more on [mongodb.com](https://www.mongodb.com/docs/manual/reference/connection-string/).) 
+-   MONGODB_PORT: MongoDB Port, eg. 27018 or standard port 27017. Read more on [mongodb.com](https://www.mongodb.com/docs/manual/reference/connection-string/).
+-   MONGODB_DATABASE_NAME: Name of your MongoDB database you like to backup.
+
 
 #### Optional Environment Variables
 
@@ -147,6 +151,8 @@ If you intend to use email notifications (configured with SendEmailNotifications
 -   EMAIL_PROVIDER_HOST: Hostname of the email provider.
 -   EMAIL_ADDRESS_SENDER_BACKUP: Sender email address for backup notifications.
 -   EMAIL_ADDRESS_RECEIVER_BACKUP: Receiver email address for backup notifications.
+-   MONGODB_USERNAME: Username as part of your MongoDB connection string if needed. Read more on [mongodb.com](https://www.mongodb.com/docs/manual/reference/connection-string/).
+-   MONGODB_PASSWORD: Password as part of your MongoDB connection string if needed. Read more on [mongodb.com](https://www.mongodb.com/docs/manual/reference/connection-string/).
 
 #### Important Note
 
@@ -164,8 +170,13 @@ AWS_REGION=your-aws-region
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
 
-# Database Configuration
-MONGO_URI=mongodb://localhost:27017
+# Database Configuration 
+MONGODB_SCHEME=mongodb
+MONGODB_USERNAME=your-mongodb-username # Optional
+MONGODB_PASSWORD=your-mongodb-password # Optional
+MONGODB_HOST=localhost
+MONGODB_PORT=your-mongodb-port # Likely 27017
+MONGODB_DATABASE_NAME=your-mongodb-database-name
 
 # Email Notification Configuration (Optional)
 EMAIL_PROVIDER_PASSWORD=your-email-provider-password
@@ -174,8 +185,7 @@ EMAIL_PROVIDER_SMTP_PORT=your-smtp-port
 EMAIL_PROVIDER_HOST=your-email-provider-host
 EMAIL_ADDRESS_SENDER_BACKUP=your-sender-email-address
 EMAIL_ADDRESS_RECEIVER_BACKUP=your-receiver-email-address
-
-   ```
+```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Configuration
@@ -206,8 +216,12 @@ The following configurations can be modified in the config file located at => /c
 | S3RegionEnv                   |Name of .env key to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| string|"AWS_REGION"
 | S3AccessKeyEnv                |Name of .env key to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| string|"AWS_ACCESS_KEY_ID"
 | S3SecretKeyEnv                |Name of .env key to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| string|"AWS_SECRET_ACCESS_KEY"  
-| MongoURIEnv                |Name of .env key to define a MongoDB URI (Uniform Resource Identifier). The value behind this .env key is placed in your .env file. |string| "MONGO_URI"
-
+| MongoDatabaseSchemeEnv        |Name of .env key to define a MongoDB scheme. The value behind this .env key is placed in your .env file. |string| "MONGODB_SCHEME"
+| MongoDatabaseUsernameEnv      |Name of .env key to define a MongoDB user name if needed. The value behind this .env key is placed in your .env file. |string| "MONGODB_USERNAME"
+| MongoDatabasePasswordEnv      |Name of .env key to define a MongoDB password if needed. The value behind this .env key is placed in your .env file. |string| "MONGODB_PASSWORD"
+| MongoDatabaseHostdEnv         |Name of .env key to define a MongoDB host. The value behind this .env key is placed in your .env file. |string| "MONGODB_HOST"
+| MongoDatabasePortEnv          |Name of .env key to define a MongoDB port number. The value behind this .env key is placed in your .env file. |string| "MONGODB_PORT"
+| MongoDatabaseNameEnv          |Name of .env key to define a MongoDB database name. The value behind this .env key is placed in your .env file. |string| "MONGODB_DATABASE_NAME"
 
 
 ### Run program

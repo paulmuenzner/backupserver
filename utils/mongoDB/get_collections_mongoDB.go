@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func (client *DatabaseClient) DatabaseExists(nameDatabase string) (bool, error) {
+func (client *MongoDBClient) DatabaseExists(nameDatabase string) (bool, error) {
 	// List all databases
 	databases, err := client.MongoDB.ListDatabaseNames(context.Background(), bson.M{})
 	if err != nil {
@@ -26,7 +26,7 @@ func (client *DatabaseClient) DatabaseExists(nameDatabase string) (bool, error) 
 	return false, nil
 }
 
-func (client *DatabaseClient) GetAllCollections(nameDatabase string) ([]string, error) {
+func (client *MongoDBClient) GetAllCollections(nameDatabase string) ([]string, error) {
 
 	// Get a handle for the database
 	database := client.MongoDB.Database(nameDatabase)

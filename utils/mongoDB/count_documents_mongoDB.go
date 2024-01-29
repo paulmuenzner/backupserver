@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func (client *DatabaseClient) CountDocumentsInMongo(databaseName string, collection string) (int, error) {
+func (client *MongoDBClient) CountDocumentsInMongo(databaseName string, collection string) (int, error) {
 	var result int
 
 	// Create a session for the database
