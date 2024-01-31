@@ -30,7 +30,7 @@ const (
 	IsCircularBufferActivatedLocally = true // If false, all created backups will be stored and not deleted by this program - no circular buffer mechanism
 	MaxBackupsLocally                = 5    // Circular buffer deletes backups older than latest number of MaxBackupsLocally locally if above 'LocalBackupStorage' is true
 	// AWS S3 Production config .env variable names
-	S3BucketEnv    = "BUCKET_NAME"
+	S3BucketEnv    = "AWS_S3_BUCKET_NAME"
 	S3RegionEnv    = "AWS_REGION"
 	S3AccessKeyEnv = "AWS_ACCESS_KEY_ID"
 	S3SecretKeyEnv = "AWS_SECRET_ACCESS_KEY"

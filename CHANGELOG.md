@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.2] - 2024-01-31
+
+-   Standardization env keys
+
 ## [1.0.1] - 2024-01-29
 
 -   Improvement Dependency Injection Setup for MongoDB client and methods

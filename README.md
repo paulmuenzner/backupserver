@@ -71,7 +71,8 @@ This Golang-based server is designed to automate recurring backups of MongoDB da
 -   **Circular Buffer**: Implement a circular buffer to manage and optimize backup storage.
 -   **CSV Format**: Each MongoDB collection is saved as a CSV file, offering simplicity and human readability. 
 -   **Configuration Flexibility**: Easily modify several parameters, such as for cron jobs and adjust the number of kept backups thanks to a flexible configuration system.
--   **Limit File Size**: Define max and limit size of csv files. Large collections are splitted into multiple numbered files.
+-   **Limitless Sizes**: Create MongoDB backups of any size without limits and upload to AWS S3. Large collections are splitted into multiple numbered files automatically to not exceed S3's maximum permitted [upload size](https://aws.amazon.com/s3/?nc1=h_ls).
+-   **Limitless Nested Levels**: This backup server can handle any level of nested values inside MongoDB's bson documents.
 -   **Dependency Injection (DI) setup**: This Golang webserver boasts a robust architecture designed for flexibility, reduced coupling and testibiliy through a dedicated Dependency Injection (DI) setup. The core functionalities of database communications, and AWS operations and sending email notifications are seamlessly integrated, providing a cohesive and modular solution.
 -   **AWS S3 Integration**: Backups are securely uploaded to AWS S3 for reliable and scalable storage. Multipart uploads are applied automatically for large csv files improving throughput by uploading a number of parts in parallel.
 -   **S3 Pagination**: Pagination implemented to handle large object lists with AWS S3.
@@ -129,7 +130,7 @@ AWS S3 & MongoDB Configuration:
 
 If your application involves interactions with AWS S3, you must provide the following key-value pairs in the .env file:
 
--   BUCKET_NAME: The name of your AWS S3 bucket.
+-   AWS_S3_BUCKET_NAME: The name of your AWS S3 bucket.
 -   AWS_REGION: The AWS region where your S3 bucket is located.
 -   AWS_ACCESS_KEY_ID: Your AWS access key ID.
 -   AWS_SECRET_ACCESS_KEY: Your AWS secret access key.
@@ -165,7 +166,7 @@ The program relies on these configurations to run successfully. Without the corr
 Here's an example .env template in code format. Replace "your-..." placeholders with your actual values. Ensure that this file is kept secure, and sensitive information is not shared publicly. Users should fill in the appropriate values for their specific configurations.
 ```sh
 # AWS S3 Configuration
-BUCKET_NAME=your-s3-bucket-name
+AWS_S3_BUCKET_NAME=your-s3-bucket-name
 AWS_REGION=your-aws-region
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
@@ -212,7 +213,7 @@ The following configurations can be modified in the config file located at => /c
 | UseLocalBackupStorage             |Decide if you like to store backups on your local machine (where this program is running on), too.|bool| true 
 | IsCircularBufferActivatedLocally  | Same function as 'IsCircularBufferActivatedS3' but for local backup storage. |bool| true
 | MaxBackupsLocally                 | Same as 'MaxBackupsS3' but for local backup storage. If MaxBackupsLocally is set to true, circular buffer deletes backups older than latest number of MaxBackupsLocally locally.|int| 10
-| S3BucketEnv                   |Name of .env key to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be ready in your AWS account.|string| "BUCKET_NAME"
+| S3BucketEnv                   |Name of .env key to configure bucket name. The value behind this .env key is placed in your .env file. Needed, to configure AWS S3. Check your S3 AWS dashboard for this value. The bucket with the exact same name must be ready in your AWS account.|string| "AWS_S3_BUCKET_NAME"
 | S3RegionEnv                   |Name of .env key to configure S3 region. The value behind this .env key is placed in your .env file. The region with the exact same name is mentioned in your AWS account.| string|"AWS_REGION"
 | S3AccessKeyEnv                |Name of .env key to add S3 access key. The value behind this .env key is placed in your .env file. The access key is available in your AWS account.| string|"AWS_ACCESS_KEY_ID"
 | S3SecretKeyEnv                |Name of .env key to add S3 secret key. The value behind this .env key is placed in your .env file. The secret key is available in your AWS account.| string|"AWS_SECRET_ACCESS_KEY"  
