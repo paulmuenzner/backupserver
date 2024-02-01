@@ -16,8 +16,8 @@ func (client *MailClient) SendEmailBackupSuccess(timeStamp time.Time, bucketName
 	subjectComponents := []string{"Successful backup: ", timeStampString}
 	subject := strings.ConcatenateStrings(subjectComponents...)
 
-	// Subject
-	bodyComponents := []string{"<html><body><h1>Successful Database Backup.</h2> <br/><br/> Date: ", timeStampString, "<br/> Database name: ", databaseName, "<br/> Bucket name: ", bucketName, "<br/> Folder path S3: ", folderPathBackup, "</body></html>"}
+	// Body
+	bodyComponents := []string{"<html><body><h2>Successful Database Backup.</h2> <br/><br/> Date: ", timeStampString, "<br/> Database name: ", databaseName, "<br/> Bucket name: ", bucketName, "<br/> Folder path S3: ", folderPathBackup, "</body></html>"}
 	body := strings.ConcatenateStrings(bodyComponents...)
 
 	senderEmailAddress, err := envHandler.GetEnvValue(config.EmailAddressSenderEnv, "") // Feel free to use default value via base_config

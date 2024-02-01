@@ -3,6 +3,7 @@
 ## [1.0.4] - 2024-02-01
 
 -   Change to human readable US format for dates in body of email notifications.
+-   Formatting HTML email body.
 
 ## [1.0.3] - 2024-02-01
 

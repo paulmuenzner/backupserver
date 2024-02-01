@@ -17,9 +17,9 @@ func (client *MailClient) SendEmailFailedBackup(timeStamp time.Time, errorMessag
 	subjectComponents := []string{"Failed backup: ", timeStampString}
 	subject := strings.ConcatenateStrings(subjectComponents...)
 
-	// Subject
+	// Body
 	errorAsString := convert.ErrorAsString(errorMessage)
-	bodyComponents := []string{"<html><body><h1>Failed Database Backup.</h2> <br/><br/> Date: ", timeStampString, "<br/> Error: ", errorAsString, "<br/> Database name: ", databaseName, "<br/> Bucket name: ", bucketName, "<br/> Folder path S3: ", folderPathBackup, "</body></html>"}
+	bodyComponents := []string{"<html><body><h2>Failed Database Backup.</h2> <br/><br/> Date: ", timeStampString, "<br/> Error: ", errorAsString, "<br/> Database name: ", databaseName, "<br/> Bucket name: ", bucketName, "<br/> Folder path S3: ", folderPathBackup, "</body></html>"}
 	body := strings.ConcatenateStrings(bodyComponents...)
 
 	senderEmailAddress, err := envHandler.GetEnvValue(config.EmailAddressSenderEnv, "") // Feel free to use default value via base_config
