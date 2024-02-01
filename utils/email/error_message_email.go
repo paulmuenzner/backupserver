@@ -12,7 +12,7 @@ import (
 )
 
 func (client *MailClient) SendEmailFailedBackup(timeStamp time.Time, errorMessage error, bucketName, folderPathBackup, databaseName string) error {
-	timeStampString := date.TimeStampSlug(timeStamp)
+	timeStampString := date.TimeStampToUSFormat(timeStamp)
 	// Subject
 	subjectComponents := []string{"Failed backup: ", timeStampString}
 	subject := strings.ConcatenateStrings(subjectComponents...)
