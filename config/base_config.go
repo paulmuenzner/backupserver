@@ -4,8 +4,7 @@ const (
 	DeleteLogsAfterDays       = 5
 	FolderNameBackup          = "backupdata"
 	FileNameMetaData          = "meta_data.csv"
-	IntervalBackup            = "@every 10s" // cron-like syntax format to define a recurring schedule. Alternative examples: "@every 30m", "@every 6h", "@every 1d"
-	MongoURIEnv               = "MONGO_URI"
+	IntervalBackup            = "@every 10s"                               // cron-like syntax format to define a recurring schedule. Alternative examples: "@every 30m", "@every 6h", "@every 1d"
 	MaxFileSizeInBytes  int64 = 2 /* <<< Size in GB*/ * 1024 * 1024 * 1024 // Maximum permitted backup csv file size. Consider max upload size permitted by AWS S3 => README.md
 	// Database
 	MongoDatabaseSchemeEnv   = "MONGODB_SCHEME"

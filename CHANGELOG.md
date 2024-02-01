@@ -4,6 +4,7 @@
 
 -   Change to human readable US format for dates in body of email notifications.
 -   Formatting HTML email body.
+-   Clean up .env file
 
 ## [1.0.3] - 2024-02-01
 
