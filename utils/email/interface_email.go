@@ -12,6 +12,7 @@ import (
 // /////////////////////
 type EmailMethods interface {
 	SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup, databaseName string) error
+	SendEmailFailedBackup(timeStamp time.Time, errorMessage error, bucketName, folderPathBackup, databaseName string) error
 	SendEmail(senderEmail, recipientEmail, subject, body string) error
 }
 

@@ -20,11 +20,25 @@ func Backup(mongoDbClientConfig *mongoDB.MongoDBClient, awsClientConfig *aws.Aws
 	timeStamp := date.TimeStamp()
 	timeStampString := date.TimeStampSlug(timeStamp)
 
+	// Setup Email client dependency
+	emailMethods, err := email.GetEmailMethods(emailClientConfig)
+	if err != nil {
+		logger.GetLogger().Errorf("Error in 'Backup()' utilizing 'GetEmailMethods()' for 'emailMethods'. Error: %v", err)
+		return
+	}
+
 	// Generate a distinct backup folder named with the current timestamp
 	folderPathBackup := files.GetSubFolder(timeStampString)
-	err := os.MkdirAll(folderPathBackup, os.ModePerm)
+	err = os.MkdirAll(folderPathBackup, os.ModePerm)
 	if err != nil {
 		logger.GetLogger().Error("Error creating subfolder in 'Backup()'.", " Folder path: ", folderPathBackup, ". Error: ", err)
+		if config.SendEmailNotifications == true {
+			// Send error mail
+			err = emailMethods.MethodInterface.SendEmailFailedBackup(timeStamp, err, bucketName, folderPathBackup, databaseName)
+			if err != nil {
+				logger.GetLogger().Error("Error in 'Backup()' utilizing 'SendEmailFailedBackup()' as part of 'os.MkdirAll()' in 'Backup()'. Error: ", err)
+			}
+		}
 		return
 	}
 
@@ -34,6 +48,13 @@ func Backup(mongoDbClientConfig *mongoDB.MongoDBClient, awsClientConfig *aws.Aws
 	err = services.CreateMetaDataFile(folderPathBackup, fileNameMeta)
 	if err != nil {
 		logger.GetLogger().Error("Error creating meta data file in 'Backup()'.", " Meta file name: ", fileNameMeta, " Folder path: ", folderPathBackup, ". Error: ", err)
+		if config.SendEmailNotifications == true {
+			// Send error mail
+			err = emailMethods.MethodInterface.SendEmailFailedBackup(timeStamp, err, bucketName, folderPathBackup, databaseName)
+			if err != nil {
+				logger.GetLogger().Error("Error in 'Backup()' utilizing 'SendEmailFailedBackup()' as part of 'CreateMetaDataFile()' in 'Backup()'. Error: ", err)
+			}
+		}
 		return
 	}
 
@@ -46,6 +67,13 @@ func Backup(mongoDbClientConfig *mongoDB.MongoDBClient, awsClientConfig *aws.Aws
 	err = CreateBackupFiles(databaseClientSetup, databaseName, timeStamp, folderPathBackup, fileNameMeta)
 	if err != nil {
 		logger.GetLogger().Error("Error creating all backup files in 'Backup()' using 'CreateBackupFiles()'. Error: ", err)
+		if config.SendEmailNotifications == true {
+			// Send error mail
+			err = emailMethods.MethodInterface.SendEmailFailedBackup(timeStamp, err, bucketName, folderPathBackup, databaseName)
+			if err != nil {
+				logger.GetLogger().Error("Error in 'Backup()' utilizing 'SendEmailFailedBackup()' as part of 'CreateBackupFiles()' in 'Backup()'. Error: ", err)
+			}
+		}
 		return
 	}
 
@@ -55,21 +83,21 @@ func Backup(mongoDbClientConfig *mongoDB.MongoDBClient, awsClientConfig *aws.Aws
 	err = ManageStorages(folderPathBackup, fileNameMeta, awsClientConfig, bucketName)
 	if err != nil {
 		logger.GetLogger().Error("Error in 'Backup()' utilizing 'ManageStorages()'. Error: ", err)
+		if config.SendEmailNotifications == true {
+			// Send error mail
+			err = emailMethods.MethodInterface.SendEmailFailedBackup(timeStamp, err, bucketName, folderPathBackup, databaseName)
+			if err != nil {
+				logger.GetLogger().Error("Error in 'Backup()' utilizing 'SendEmailFailedBackup()' as part of 'ManageStorages()' in 'Backup()'. Error: ", err)
+			}
+		}
 		return
 	}
 
 	if config.SendEmailNotifications == true {
-		// Setup Email client dependency
-		emailMethods, err := email.GetEmailMethods(emailClientConfig)
-		if err != nil {
-			logger.GetLogger().Errorf("Error in 'Backup()' utilizing 'GetEmailMethods()' for 'emailMethods'. Error: %v", err)
-			return
-		}
-
+		// Send success mail
 		err = emailMethods.MethodInterface.SendEmailBackupSuccess(timeStamp, bucketName, folderPathBackup, databaseName)
 		if err != nil {
 			logger.GetLogger().Error("Error in 'Backup()' utilizing 'SendEmailBackupSuccess()'. Error: ", err)
-			return
 		}
 	}
 
