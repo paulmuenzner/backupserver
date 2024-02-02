@@ -4,6 +4,7 @@
 
 -   Add database connection test using real database connection (no mock)
 -   Standardization interface names
+-   Removing clear text error logging of aws config data
 
 ## [1.0.4] - 2024-02-01
 
