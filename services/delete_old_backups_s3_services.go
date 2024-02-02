@@ -14,7 +14,7 @@ func DeleteOldBackupsS3(bucketName string, awsClientConfig *aws.AwsClientConfigD
 	// Setup AWS S3 client dependency
 	awsMethods, err := aws.GetAwsMethods(awsClientConfig)
 	if err != nil {
-		return fmt.Errorf("Error in 'DeleteOldBackupsS3()' with 'GetAwsMethods()' using the following aws client config data: %+v. Error:  %v", awsClientConfig, err)
+		return fmt.Errorf("Error in 'DeleteOldBackupsS3()' with 'GetAwsMethods()'. Error:  %v", err)
 	}
 
 	///////////////////////////////////////////////////////////////////
