@@ -14,7 +14,7 @@ import (
 )
 
 // More on cron jobs in Go -> https://pkg.go.dev/github.com/robfig/cron#section-readme
-func Backup(mongoDbClientConfig *mongoDB.MongoDBClient, awsClientConfig *aws.AwsClientConfigData, emailClientConfig *email.EmailClientConfigData, bucketName, databaseName string) {
+func Backup(mongoDbClient *mongoDB.MongoDBClient, awsClientConfig *aws.AwsClientConfigData, emailClientConfig *email.EmailClientConfigData, bucketName, databaseName string) {
 	//////////////////////////////////////
 	// Define time stamps
 	timeStamp := date.TimeStamp()
@@ -60,11 +60,11 @@ func Backup(mongoDbClientConfig *mongoDB.MongoDBClient, awsClientConfig *aws.Aws
 
 	/////////////////////////////////////////////////////////////////
 	// Setup database client for following Dependency Injections
-	databaseClientSetup := mongoDB.NewMongoDBMethodInterface(mongoDbClientConfig)
+	databaseInterface := mongoDB.NewMongoDBMethodInterface(mongoDbClient)
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Loop through all database collections and create backup files in local backup folder 'folderPathBackup'
-	err = CreateBackupFiles(databaseClientSetup, databaseName, timeStamp, folderPathBackup, fileNameMeta)
+	err = CreateBackupFiles(databaseInterface, databaseName, timeStamp, folderPathBackup, fileNameMeta)
 	if err != nil {
 		logger.GetLogger().Error("Error creating all backup files in 'Backup()' using 'CreateBackupFiles()'. Error: ", err)
 		if config.SendEmailNotifications == true {

@@ -9,7 +9,7 @@ import (
 
 // Retrieve configuration data (eg. aws region, access key) from .env file for production settings only
 // Base parameter for dependency injection of aws client (production)
-func AwsS3ProductionConfig() (S3ClientConfig *AwsClientConfigData, bucketName string,
+func AwsS3ProductionConfig() (awsClientConfig *AwsClientConfigData, bucketName string,
 	err error) {
 	// Retrieve .env values by keys provided in config file
 
@@ -32,7 +32,7 @@ func AwsS3ProductionConfig() (S3ClientConfig *AwsClientConfigData, bucketName st
 	}
 
 	// Configure AwsClientConfigData structure
-	awsClientConfig := &AwsClientConfigData{AwsRegion: awsRegion,
+	awsClientConfig = &AwsClientConfigData{AwsRegion: awsRegion,
 		AwsAccessKeyId: awsAccessKeyId,
 		AwsSecretKey:   awsSecretKey}
 

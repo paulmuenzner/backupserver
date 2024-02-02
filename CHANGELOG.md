@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.5] - 2024-02-02
+
+-   Add database connection test using real database connection (no mock)
+-   Standardization interface names
+
 ## [1.0.4] - 2024-02-01
 
 -   Change to human readable US format for dates in body of email notifications.

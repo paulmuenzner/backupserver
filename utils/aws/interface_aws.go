@@ -7,9 +7,9 @@ import (
 )
 
 // ///////////////////////////////////////////////////////////
-// Setup of Dependency Injection for AWS S3 Client Methods
+// Setup interface for AWS S3 repository utilizing Dependency Injection
 // /////////////////////
-type S3Methods interface {
+type S3Repository interface {
 	UploadFile(bucketName string, objectKey string, filePath string) error
 	DeleteObjects(bucketName string, objectKeys []string) error
 	ListFolderNamesS3(bucketName, folderPrefix string) ([]string, error)
@@ -28,7 +28,7 @@ type AwsClientConfigData struct {
 }
 
 type AwsMethodInterface struct {
-	MethodInterface S3Methods
+	MethodInterface S3Repository
 }
 
 func NewAwsMethodInterface(s3Client *S3Client) *AwsMethodInterface {

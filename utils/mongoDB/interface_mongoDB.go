@@ -4,10 +4,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// /////////////////////////////////////////////////////////
-// Setup of Dependency Injection for MongoDB Client Methods
+// ///////////////////////////////////////////////////////////////////////////
+// Setup interface for database repository utilizing Dependency Injection
 // ///////////////////
-type MongoDBMethods interface {
+type MongoDBRepository interface {
 	CountDocumentsInMongo(databaseName string, collection string) (int, error)
 	GetAllCollections(nameDatabase string) ([]string, error)
 	FindDocumentsInMongo(databaseName string, collection string, interval int, skip int, result interface{}) error
@@ -27,7 +27,7 @@ type MongoDBClientConfigData struct {
 }
 
 type MongoDBMethodInterface struct {
-	MethodInterface MongoDBMethods
+	MethodInterface MongoDBRepository
 }
 
 func NewMongoDBMethodInterface(mongoClient *MongoDBClient) *MongoDBMethodInterface {

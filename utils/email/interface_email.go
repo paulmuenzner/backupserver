@@ -8,9 +8,9 @@ import (
 )
 
 // ///////////////////////////////////////////////////////////////////////
-// Setup of Dependency Injection for Transactional Email Client Methods
+// Setup interface for email repository utilizing Dependency Injection
 // /////////////////////
-type EmailMethods interface {
+type EmailRepository interface {
 	SendEmailBackupSuccess(timeStamp time.Time, bucketName, folderPathBackup, databaseName string) error
 	SendEmailFailedBackup(timeStamp time.Time, errorMessage error, bucketName, folderPathBackup, databaseName string) error
 	SendEmail(senderEmail, recipientEmail, subject, body string) error
@@ -28,7 +28,7 @@ type EmailClientConfigData struct {
 }
 
 type EmailMethodInterface struct {
-	MethodInterface EmailMethods
+	MethodInterface EmailRepository
 }
 
 func NewEmailMetodInterface(emailClient *MailClient) *EmailMethodInterface {
