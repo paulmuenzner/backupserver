@@ -242,6 +242,7 @@ Run program by: `go run main.go` or use live-reloader such as [air](https://gith
 -   ✅ Add optional email notification feature
 -   ⬜️ Add gzip compression feature for entire backup files
 -   ⬜️ Expand testing
+-   ⬜️ Addressing more nuanced linting issues
 -   ⬜️ Include the option to perform backups for SQL databases in addition to MongoDB
 -   ⬜️ Add option to backup multiple databases
 -   ⬜️ Add option to upload backups to MS Azure
