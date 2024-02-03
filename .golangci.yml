@@ -1,5 +1,4 @@
 #### https://golangci-lint.run/usage/configuration/
-#"go.lintTool": "golangci-lint"
 # golangci-lint run 
 
 # Run all linters
