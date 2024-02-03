@@ -4,7 +4,7 @@
 
 -   Decrease potential risk of users or processes gaining unauthorized access to files by using more restrictive permissions 0644 -> 0600 and 0777 -> 0750
 -   Omit comparisons to bool constants
--   Update gitignore. Removing .golangci.yml
+-   Update .golangci.yml
 
 ## [1.0.5] - 2024-02-02
 
