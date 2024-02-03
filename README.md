@@ -195,13 +195,13 @@ The following configurations can be modified in the config file located at => /c
 
 | Key                               |  Description |  Type |  Example 
 |:-----                             |:---------    |:---------  |:---------  
-| DeleteLogsAfterDays               | Errors are logged to 'log/'-folder. Log file names are assigned by day. All logs generated during one day are collected in a designated backup file. This parameter indicates after how many days log files will be deleted automatically. | int|   5  
+| DeleteLogsAfterDays               | Errors are logged to the 'log/' folder, with log file names assigned based on the day. All logs generated within a day are consolidated into a designated backup file. This parameter determines the number of days after which log files will be automatically deleted. | int|   5  
 | NameDatabase                      |  Configure your database name you like to backup. It must be 100% identical to the MongoDB database name. | string| "MyProjectDB"  
 | FolderNameBackup                  | Determine the folder name where your backup is stored in the cloud; inside the S3 bucket. | string|"mydbbackup"
 | FileNameMetaData                  |File name for meta data file containing information on each created backup file | string| "meta_data.csv"  
 | IntervalBackup                    |Cron-like syntax format to define the recurring schedule of your automatic backup  |string|"@every 6h"
 | MaxFileSizeInBytes                | The maximum size of a backup file. Be aware of the max upload size permitted by AWS S3. Of the configured file size is not sufficient, a new backup file is created with the same name plus an added sequential numbering at the end           |int64| 2 * 1024 * 1024 * 1024
-| SendEmailNotifications            |Decide whether you want to send email notifications or not. Emails are send in both cases error and successfully completed backup. |bool| false
+| SendEmailNotifications            |Decide whether you want to send email notifications or not. Emails are sent in both cases error and successfully completed backup. |bool| false
 | EmailProviderUserNameEnv          |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.|string| "EMAIL_PROVIDER_USERNAME"
 | EmailProviderPasswordEnv          |Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.|string| "EMAIL_PROVIDER_PASSWORD"
 | EmailProviderSmtpPortEnv                       | Name of .env key. The value behind this .env key is placed in your .env file. Needed, if you want to send transactional email notifications. Ask your provider for this value.          |string| "EMAIL_PROVIDER_SMTP_PORT"
@@ -241,8 +241,8 @@ Run program by: `go run main.go` or use live-reloader such as [air](https://gith
 -   ✅ Add optional circular buffer feature for local storage
 -   ✅ Add optional email notification feature
 -   ⬜️ Add gzip compression feature for entire backup files
--   ⬜️ Extend testing
--   ⬜️ Add option to also backup SQL databases besides MongoDB
+-   ⬜️ Expand testing
+-   ⬜️ Include the option to perform backups for SQL databases in addition to MongoDB
 -   ⬜️ Add option to backup multiple databases
 -   ⬜️ Add option to upload backups to MS Azure
 
