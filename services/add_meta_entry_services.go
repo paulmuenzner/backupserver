@@ -18,7 +18,7 @@ func AddMetaEntry(dateStartBackup time.Time, dateFinalizedBackupFile time.Time, 
 
 	/////////////////////////////////////////////////////////////////
 	// Open Meta File
-	metaFile, err := os.OpenFile(filePathMeta, os.O_RDWR, 0644)
+	metaFile, err := os.OpenFile(filePathMeta, os.O_RDWR, 0600)
 	if err != nil {
 		if os.IsPermission(err) {
 			return fmt.Errorf("Permission denied to open file: %s in 'AddMetaEntry'. Error: %v", filePathMeta, err)
@@ -38,7 +38,7 @@ func AddMetaEntry(dateStartBackup time.Time, dateFinalizedBackupFile time.Time, 
 	metaWriter := csv.NewWriter(metaFile)
 
 	// Open Backup File
-	backupFile, err := os.OpenFile(filePathBackupFile, os.O_RDWR, 0644)
+	backupFile, err := os.OpenFile(filePathBackupFile, os.O_RDWR, 0600)
 	if err != nil {
 		if os.IsPermission(err) {
 			return fmt.Errorf("Permission denied to open backup file: %s in 'AddMetaEntry'. Error: %v", fileNameBackupFile, err)

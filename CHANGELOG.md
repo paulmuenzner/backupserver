@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.6] - 2024-02-03
+
+-   Decrease potential risk of users or processes gaining unauthorized access to files by using more restrictive permissions 0644 -> 0600
+
 ## [1.0.5] - 2024-02-02
 
 -   Add database connection test using real database connection (no mock)

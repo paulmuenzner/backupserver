@@ -36,9 +36,9 @@
     <br />
     <a href="#configuration">High Flexibility</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/paulmuenzner/backupserver/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/paulmuenzner/backupserver/issues">Request Feature</a>
   </p>
 </div>
 

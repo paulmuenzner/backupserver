@@ -31,7 +31,7 @@ func Init(logFileName string) {
 	cleanupOldLogFiles(logFolder)
 
 	logFilePath := filepath.Join(logFolder, logFileName)
-	logFile, err := os.OpenFile(logFilePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+	logFile, err := os.OpenFile(logFilePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600)
 
 	if err != nil {
 		log.Fatal("Error opening log file in 'Init':", err)

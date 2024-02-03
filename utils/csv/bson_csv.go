@@ -15,7 +15,7 @@ import (
 
 func WriteBSONToCSV(bsonData []bson.M, csvFilePath string) error {
 	// Open the CSV file or create if not existing
-	file, err := os.OpenFile(csvFilePath, os.O_RDWR, 0644)
+	file, err := os.OpenFile(csvFilePath, os.O_RDWR, 0600)
 	if err != nil {
 		if os.IsPermission(err) {
 			return fmt.Errorf("Permission denied to open file: %s in 'WriteBSONToCSV'. Error: %v", csvFilePath, err)

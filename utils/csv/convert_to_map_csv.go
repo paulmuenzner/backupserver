@@ -8,7 +8,7 @@ import (
 
 func ConvertCsvToMap(filePath string, recordType interface{}) (csvAsMap []map[string]string, err error) {
 	// Open file
-	metaFile, err := os.OpenFile(filePath, os.O_RDWR, 0644)
+	metaFile, err := os.OpenFile(filePath, os.O_RDWR, 0600)
 	if err != nil {
 		if os.IsPermission(err) {
 			return nil, fmt.Errorf("Permission denied to open file: %s in 'ConvertCsvToMap'. Error: %v", filePath, err)
