@@ -54,7 +54,7 @@ func UploadBackupsAwsS3(folderPathBackup, metaFileName string, awsClientConfig *
 
 	// Circular buffer S3 - Only store latest number of n backups and delete older ones if circular buffer activated
 	isCircularBufferActivatedS3 := config.IsCircularBufferActivatedS3
-	if isCircularBufferActivatedS3 == true {
+	if isCircularBufferActivatedS3 {
 		err := DeleteOldBackupsS3(bucketName, awsClientConfig)
 		if err != nil {
 			return fmt.Errorf("Error in 'Backup' utilizing 'DeleteOldBackups()'. Error: %v", err)

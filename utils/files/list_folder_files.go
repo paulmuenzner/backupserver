@@ -34,7 +34,7 @@ func ListLocalFolderNames(folderPath string) ([]string, error) {
 	folderExists, err := LocalFolderExists(folderPath)
 	if err != nil {
 		return nil, fmt.Errorf("Error validating if folder exists in 'ListLocalFolderNames'. Folder path %s. Error: %v", folderPath, err)
-	} else if folderExists == false {
+	} else if !folderExists {
 		return nil, fmt.Errorf("Folder with path path %s not existing. Validated in 'ListLocalFolderNames' with 'LocalFolderExists()'.", folderPath)
 	}
 

@@ -23,7 +23,7 @@ func (client *S3Client) UploadFile(bucketName string, objectKey string, filePath
 	exists, err := files.LocalFileExists(filePath)
 	if err != nil {
 		return fmt.Errorf("Error validating if upload file path exists in 'UploadFile' using 'LocalPathExists()'. File path %s. Error: %v", filePath, err)
-	} else if exists == false {
+	} else if !exists {
 		return fmt.Errorf("Couldn't find file with file path '%s' in 'UploadFile' with 'GetFileSizeByPath()'.", filePath)
 	}
 

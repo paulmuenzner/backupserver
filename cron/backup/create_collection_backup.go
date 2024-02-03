@@ -61,7 +61,7 @@ func CreateBackupFiles(databaseClientSetup *mongoDB.MongoDBMethodInterface, data
 			}
 
 			var backupFileSizeExceeded bool = false
-			if backupFileCreated == true {
+			if backupFileCreated {
 				// Validate if current backup file together with data to add (backupData) would surpass maximum permitted backup file size
 				// .. if yes, create new backup file in next step to add remaining collection data
 				backupFileSizeExceeded, err = files.WillExceedBackupFileSize(&backupData, fileNameBackupFile)

@@ -12,7 +12,7 @@ import (
 func ManageBackupsLocally() error {
 	localBackupFolder := config.FolderNameBackup + "/"
 	useLocalBackupStorage := config.UseLocalBackupStorage
-	if useLocalBackupStorage == false {
+	if !useLocalBackupStorage {
 		//////////////////////////////////////////////////////////////////////////////
 		// Delete all locally cashed backups (saved locally used for S3 uploads)
 		/////////////////////
@@ -25,7 +25,7 @@ func ManageBackupsLocally() error {
 		// Delete old local backups depending on if local circular buffer is activated
 		/////////////////////
 		isCircularBufferActivatedLocally := config.IsCircularBufferActivatedLocally
-		if isCircularBufferActivatedLocally == true {
+		if isCircularBufferActivatedLocally {
 			//////////////////////////////////////////////////
 			// Validate if more backups on local storage than permitted (accoding to config.MaxBackupsLocally)
 			listLocalBackupFolders, err := files.ListLocalFolderNames(localBackupFolder)
@@ -36,7 +36,7 @@ func ManageBackupsLocally() error {
 			moreBackupsThanPermitted := len(listLocalBackupFolders) > maxBackupsLocally
 
 			// If more local backups in backup folder than permitted, delete outdated ones
-			if moreBackupsThanPermitted == true {
+			if moreBackupsThanPermitted {
 				// Get outdated backup folder names to delete
 				outdatedBackups, _ := helper.ClassifyBackupsByAge(listLocalBackupFolders, maxBackupsLocally)
 
