@@ -2,7 +2,7 @@
 
 ## [1.0.6] - 2024-02-03
 
--   Decrease potential risk of users or processes gaining unauthorized access to files by using more restrictive permissions 0644 -> 0600
+-   Decrease potential risk of users or processes gaining unauthorized access to files by using more restrictive permissions 0644 -> 0600 and 0777 -> 0750
 
 ## [1.0.5] - 2024-02-02
 

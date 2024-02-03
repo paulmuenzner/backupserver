@@ -8,7 +8,7 @@ import (
 func TestDeleteLocalFolder(t *testing.T) {
 	// Create a temporary folder for testing
 	testFolder := "test_folder"
-	err := os.Mkdir(testFolder, 0777)
+	err := os.Mkdir(testFolder, 0750)
 	if err != nil {
 		t.Fatalf("Failed to create test folder: %v", err)
 	}
