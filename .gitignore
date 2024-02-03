@@ -15,6 +15,9 @@ backupdata/
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# .golangci.yml 
+.golangci.yml
+
 # Ignore the .aws folder
 .aws/
 
