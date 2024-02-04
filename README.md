@@ -241,6 +241,7 @@ Run program by: `go run main.go` or use live-reloader such as [air](https://gith
 -   ✅ Add optional circular buffer feature for local storage
 -   ✅ Add optional email notification feature
 -   ⬜️ Add gzip compression feature for entire backup files
+-   ⬜️ Configuring a threshold option for the amount of memory used during the temporary storage of collection loop iteration steps as a prudent practice for conscientious RAM resource management
 -   ⬜️ Expand testing
 -   ⬜️ Addressing more nuanced linting issues
 -   ⬜️ Include the option to perform backups for SQL databases in addition to MongoDB
