@@ -22,12 +22,6 @@ run:
   skip-dirs:
     - tmp
 
-# Lint specific package or file
-# Use `#` to comment out options when not needed
-# run:
-#   args: ["run", "-p", "your_package_name"] # Lint specific package
-#   args: ["run", "-f", "path/to/your/file.go"] # Lint specific file
-
 # Build tools configuration (adjust paths as needed)
 build:
   - args: ["-v", "--skip-install"] # Optionally skip installing dependencies
@@ -43,6 +37,8 @@ linters:
   enable:
     - govet
     - misspell
+    - unused
+    - gocyclo
     - unconvert
     - goconst
     - revive
